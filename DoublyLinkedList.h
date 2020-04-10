@@ -9,7 +9,7 @@ public:
   ~DoublyLinkedList();
 
   void insertFront(T data);
-  void insertBack(T data);
+  void insertBack(T data); //There is no generic insert, only front and back, do we need a generic?
   T removeFront();
   // T removeBack(); // Need to write this method still
   T remove(T value);

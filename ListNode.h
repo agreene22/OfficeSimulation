@@ -8,8 +8,8 @@ public:
   ListNode<T> *next;
   ListNode<T> *prev;
 
-  ListNode(); //ctor
-  ListNode(T d); //overloaded ctor
+  ListNode(); //constructor
+  ListNode(T d); //overloaded constructor
   ~ListNode();
 };
 
