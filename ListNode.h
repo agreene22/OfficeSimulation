@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-template <class T>
+template <typename T>
 class ListNode{
 public:
   T data;
@@ -13,21 +13,21 @@ public:
   ~ListNode();
 };
 
-template <class T>
+template <typename T>
 ListNode<T>::ListNode(){
   data = 0;
   next = NULL;
   prev = NULL;
 }
 
-template <class T>
+template <typename T>
 ListNode<T>::ListNode(T d){
   data = d;
   next = NULL;
   prev = NULL;
 }
 
-template <class T>
+template <typename T>
 ListNode<T>::~ListNode(){
   next = NULL;
   prev = NULL;
