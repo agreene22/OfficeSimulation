@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-template <class T>
+template <typename T>
 class GenQueue{ // Should we make the queue circular
 public:
   GenQueue(); //default constructor
@@ -27,7 +27,7 @@ public:
   DoublyLinkedList<T> *myQueue; //LinkedList
 };
 
-template <class T>
+template <typename T>
 GenQueue<T>::GenQueue(){
   //default constructor
   myQueue = new DoublyLinkedList<T>();
@@ -37,7 +37,7 @@ GenQueue<T>::GenQueue(){
   numElements = 0;
 }
 //overloaded constructor
-template <class T>
+template <typename T>
 GenQueue<T>::GenQueue(int maxSize){
   myQueue = new DoublyLinkedList<T>();
   mSize = maxSize;
@@ -46,12 +46,12 @@ GenQueue<T>::GenQueue(int maxSize){
   numElements = 0;
 }
 
-template <class T>
+template <typename T>
 GenQueue<T>::~GenQueue(){
   delete myQueue;
 }
 
-template <class T>
+template <typename T>
 void GenQueue<T>::insert(T d){
   if(isFull()){
     return;
@@ -61,7 +61,7 @@ void GenQueue<T>::insert(T d){
   }
 }
 
-template <class T>
+template <typename T>
 T GenQueue<T>::remove(){
   //error checking (if it is not empty)
   if(isEmpty()){
@@ -76,23 +76,23 @@ T GenQueue<T>::remove(){
   }
 }
 
-template <class T>
+template <typename T>
 T GenQueue<T>::peak(){
   return myQueue->front;
   //This^ does not work because front is private in the LinkedList are we allowed to make it public or should we write a method getFront
 }
 
-template <class T>
+template <typename T>
 bool GenQueue<T>::isFull(){
   return (numElements == mSize);
 }
 
-template <class T>
+template <typename T>
 bool GenQueue<T>::isEmpty(){
   return (numElements == 0);
 }
 
-template <class T>
+template <typename T>
 int GenQueue<T>::getSize(){
   return numElements;
 }
