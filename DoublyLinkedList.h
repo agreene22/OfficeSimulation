@@ -2,7 +2,7 @@
 #include "ListNode.h"
 using namespace std;
 
-template <class T>
+template <typename T>
 class DoublyLinkedList{
 public:
   DoublyLinkedList();
@@ -26,14 +26,14 @@ private:
   unsigned int size;
 };
 
-template <class T>
+template <typename T>
 DoublyLinkedList<T>::DoublyLinkedList(){
   size = 0;
   front = NULL;
   back = NULL;
 }
 
-template <class T>
+template <typename T>
 DoublyLinkedList<T>::~DoublyLinkedList(){
   front = NULL;
   back = NULL;
@@ -41,17 +41,17 @@ DoublyLinkedList<T>::~DoublyLinkedList(){
   delete back;
 }
 
-template <class T>
+template <typename T>
 unsigned int DoublyLinkedList<T>::getSize(){
   return size;
 }
 
-template <class T>
+template <typename T>
 bool DoublyLinkedList<T>::isEmpty(){
   return (size==0);
 }
 
-template <class T>
+template <typename T>
 void DoublyLinkedList<T>::printList(){
   ListNode<T> *curr = front;
   while(curr != NULL){
@@ -60,7 +60,7 @@ void DoublyLinkedList<T>::printList(){
   }
 }
 
-template <class T>
+template <typename T>
 void DoublyLinkedList<T>::insertFront(T d){
   ListNode<T> *node = new ListNode<T>(d);
 
@@ -76,7 +76,7 @@ void DoublyLinkedList<T>::insertFront(T d){
   size++;
 }
 
-template <class T>
+template <typename T>
 void DoublyLinkedList<T>::insertBack(T d){
   ListNode<T> *node = new ListNode<T>(d);
 
@@ -92,7 +92,7 @@ void DoublyLinkedList<T>::insertBack(T d){
   size++;
 }
 
-template <class T>
+template <typename T>
 T DoublyLinkedList<T>::removeFront(){
   ListNode<T> *tempNode = front;
 
@@ -117,7 +117,7 @@ T DoublyLinkedList<T>::removeFront(){
 
 //need to find the value in the list before we can delete
 //this function does not take position as a parameter
-template <class T>
+template <typename T>
 T DoublyLinkedList<T>::remove(T value){
   ListNode<T> *curr = front;
 
@@ -157,7 +157,7 @@ T DoublyLinkedList<T>::remove(T value){
   return temp;
 }
 
-template <class T>
+template <typename T>
 int DoublyLinkedList<T>::search(T val){
   int pos = -1;
   ListNode<T> *curr = front;
@@ -181,7 +181,7 @@ int DoublyLinkedList<T>::search(T val){
   }
 }
 
-template <class T>
+template <typename T>
 T DoublyLinkedList<T>::removeAtPos(int pos){
   //error to make sure pos does not exceed size of ListNode
   int idx = 0;
