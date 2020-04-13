@@ -56,7 +56,8 @@ void GenQueue<T>::insert(T d){
   if(isFull()){
     return;
   }else{
-    myQueue->insertBack(d); // rear = (rear+1)&mSize
+    myQueue->insertBack(d);
+    rear = (rear+1)&mSize;
     ++numElements;
   }
 }
@@ -70,7 +71,8 @@ T GenQueue<T>::remove(){
     T c = NULL;
     c = myQueue->front;
     //This^ does not work because front is private in the LinkedList are we allowed to make it public or should we write a method getFront
-    ++front; // front = (front+1)%mSize for circular queue
+    // ++front;
+    front = (front+1)%mSize //for circular queue
     --numElements;
     return c;
   }
@@ -85,6 +87,7 @@ T GenQueue<T>::peak(){
 template <typename T>
 bool GenQueue<T>::isFull(){
   return (numElements == mSize);
+  // return ((rear+1)%mSize == front);
 }
 
 template <typename T>
