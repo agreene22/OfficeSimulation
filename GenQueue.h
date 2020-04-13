@@ -9,8 +9,8 @@ public:
   ~GenQueue();
 
   //core functions
-  void insert(T d); //enqueue
-  T remove(); //dequeue
+  void enqueue(T d); //insert
+  T dequeue(); //remove
 
   //aux functions
   T peak();
@@ -52,7 +52,7 @@ GenQueue<T>::~GenQueue(){
 }
 
 template <typename T>
-void GenQueue<T>::insert(T d){
+void GenQueue<T>::enqueue(T d){
   if(isFull()){
     return;
   }else{
@@ -64,7 +64,7 @@ void GenQueue<T>::insert(T d){
 }
 
 template <typename T>
-T GenQueue<T>::remove(){
+T GenQueue<T>::dequeue(){
   //error checking (if it is not empty)
   if(isEmpty()){
     return NULL;
