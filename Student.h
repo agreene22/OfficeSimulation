@@ -8,8 +8,8 @@ class Student{
     ~Student();
 
   private:
-    int timeNeeded;
-    int arrrivalTime;
-    int timeIdle;
+    int m_timeNeeded;
+    int m_arrrivalTime;
+    int m_timeIdle;
 
 }
