@@ -72,6 +72,20 @@ void Simulation::Run(string fileName){
     }
   }
 
+  // totalTime /= numWindows; this isn't right but we can do something to totalTime
+  while(totalTime > 0){ // something like this or a for loop with increasing clock tick
+    if(!office->isFull()){
+      for(int i = 0; i < windowsOpen; ++i){
+        Student* first = queue->dequeue();
+        office->assignWindow(first);
+      }
+    }
+    for(int i = 0; i < windowsOpen; ++i){
+      office->
+    }
+    totalTime--;
+  }
+
   delete queue;
   delete office;
   delete s;
