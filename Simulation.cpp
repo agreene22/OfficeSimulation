@@ -42,6 +42,11 @@ void Simulation::Run(string fileName){
       ++lineCount;
     }else if(lineCount == nextClockTickLine){
       inFS >> clockTick;
+      for(int i = 0; i < windowsOpen; ++i){
+        if(windows[i]->getEndTime() == clockTick){
+          windows[i] = NULL;//removing students from the window
+        }
+      }
       //here we need to check if all the students time at the window was satisfied
       //if the time wasnt satisfied we decrement the time m_timeNeeded
       //if it was satisfied we take them out of the window
@@ -56,7 +61,11 @@ void Simulation::Run(string fileName){
       queue->enqueue(s);
       if(!office->isFull()){//office isnt full so we send the first student in line to a window
         Student* first = queue->dequeue();
-        //how are we going to handle sending students to the windows? we also need to keep track of if each
+        for(int i = 0; i < windowsOpen; ++i){
+          if(windows[i] == NULL){
+            windows[i] = first;//putting a student in a window
+          }
+        }
       }
       ++lineCount;
     }

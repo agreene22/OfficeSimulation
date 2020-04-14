@@ -9,3 +9,7 @@ Student::Student(int windowTime, int arrival){
 Student::~Student(){
   //delete something
 }
+
+int Student::getEndTime(){
+  return(m_windowStartTime + m_timeNeeded)
+}

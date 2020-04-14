@@ -9,13 +9,13 @@ class Registrar{
     Registrar();
     ~Registrar();
 
-    assignWindow(Student* s);
-    isEmpty();
-    isFull();
-    setNumWindows();
+    void assignWindow(Student* s);
+    bool isEmpty();
+    bool isFull();
+    void setNumWindows();
 
   private:
-    numWindows;
+    m_numWindows;
     Student* windows;
 
 
