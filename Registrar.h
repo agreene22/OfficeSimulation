@@ -2,6 +2,7 @@
 #include <string>
 #include "GenQueue.h"
 #include "Student.h"
+#include "Window.h"
 using namespace std;
 
 class Registrar{
@@ -11,12 +12,12 @@ class Registrar{
 
     void setNumWindows(int numWindows);
 
-    void assignWindow(int index, Student* s);
+    void assignWindow(Student* s);
     // void checkTime(int index, int currTick);
     bool isEmpty();
     bool isFull();
 
-    int* windows;
+    Window* windows;
 
   private:
     int m_numWindows;

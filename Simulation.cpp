@@ -17,17 +17,17 @@ void Simulation::Run(string fileName){
   Registrar* office = new Registrar();
   ifstream inFS;
 
-  int clockTick = 0;
-  int nextClockTickLine = 1;
-  int lineCount = 0;
+  float clockTick = 0.0;
+  float nextClockTickLine = 1.0;
+  float lineCount = 0.0;
 
-  int windowsOpen = 0;
-  int time = 0;
-  int numStudents = 0;
-  int studentTime = 0;
-  int windowsOccupied = 0;
+  float windowsOpen = 0.0;
+  float time = 0.0;
+  float numStudents = 0.0;
+  float studentTime = 0.0;
+  float windowsOccupied = 0.0;
 
-  int totalTime = 0;
+  float totalTime = 0.0;
 
   inFS.open(fileName);
 
@@ -61,9 +61,9 @@ void Simulation::Run(string fileName){
       Student* s = new Student(studentTime, clockTick);
       queue->enqueue(s);
       if(!office->isFull()){//office isnt full so we send the first student in line to a window
-        Student* first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
         for(int i = 0; i < windowsOpen; ++i){
-          office->assignWindow(i);
+          Student* first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
+          office->assignWindow();
         }
       }
       ++lineCount;
@@ -71,7 +71,6 @@ void Simulation::Run(string fileName){
       //++nextClockTickLine;
     }
   }
-
 
   delete queue;
   delete office;

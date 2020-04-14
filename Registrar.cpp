@@ -6,18 +6,33 @@ Registrar::Registrar(){
 
 void Registrar::setNumWindows(int num){
   m_numWindows = num;
-  windows = new int[num];
+  windows = new Window[num];
+  for(int i = 0; i < num; ++i){
+    windows[i] = new Window();
+  }
 }
 
 Registrar::~Registrar(){
   delete windows;
 }
 
-void Registrar::assignWindow(int index){
-  if(windows[index] == 0){ // 0 is empty, 1 is occupied
-    windows[index] = 1;
+void Registrar::assignWindow(Student* s){
+  int openWindows = m_numWindows-occupiedWindows;
+  for(int i = 0; i < openWindows; ++i){
+    if(windows[index]->isOpen()){
+      windows[index]->setStudent(s);
+    }
   }
+  occupiedWindows++;
 }
+
+// void Registrar::checkWindows(Student* s){
+//   for(int i = 0; i < m_numWindows; ++i){
+//     if(windows[i]->studentOccupy == s){
+//       return (windows[i]->isOpen());
+//     }
+//   }
+// }
 
 // void Registrar::checkTime(int index, int currTick){
 //   if(windows[index].getEndTime() == currTick){
