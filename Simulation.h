@@ -18,6 +18,7 @@ public:
   Simulation();
 
   void Run(string fileName);
+  void Calculate();
 
 private:
   double m_meanWait; //is it ok that these are all doubles? // i think we should do floats

@@ -9,6 +9,7 @@ public:
   ~Student();
 
   int getEndTime();
+  bool checkTime();
 
 private:
   int m_timeNeeded;

@@ -19,3 +19,7 @@ Student::~Student(){
 int Student::getEndTime(){
   return(m_windowStartTime + m_timeNeeded);
 }
+
+bool Student::checkTime(int currTick){
+  return (getEndTime() == currTick);
+}

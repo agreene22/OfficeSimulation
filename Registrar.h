@@ -11,12 +11,12 @@ class Registrar{
 
     void setNumWindows(int numWindows);
 
-    void assignWindow(int index, Student s);
-    void checkTime(int index, int currTick);
+    void assignWindow(int index, Student* s);
+    // void checkTime(int index, int currTick);
     bool isEmpty();
     bool isFull();
 
-    Student* windows;
+    int* windows;
 
   private:
     int m_numWindows;
