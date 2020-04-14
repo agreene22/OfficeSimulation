@@ -13,6 +13,8 @@ Simulation::Simulation(){
 
 void Simulation::Run(string fileName){
   GenQueue<Student>* queue = new GenQueue<Student>(10);
+
+  Registar* office = new Registar();
   ifstream inFS;
 
   int clockTick = 0;
@@ -36,9 +38,13 @@ void Simulation::Run(string fileName){
   while(!inFS.eof()){
     if(lineCount = 0){
       inFS >> windowsOpen;
+      office->setNumWindows(windowsOpen);
       ++lineCount;
     }else if(lineCount == nextClockTickLine){
       inFS >> clockTick;
+      //here we need to check if all the students time at the window was satisfied
+      //if the time wasnt satisfied we decrement the time m_timeNeeded
+      //if it was satisfied we take them out of the window
       ++lineCount;
     }else if (lineCount == (nextClockTickLine + 1)){
       inFS >> numStudents;
@@ -48,6 +54,10 @@ void Simulation::Run(string fileName){
       inFS >> studentTime;
       Student* s = new Student(studentTime, clockTick);
       queue->enqueue(s);
+      if(!office->isFull()){//office isnt full so we send the first student in line to a window
+        Student* first = queue->dequeue();
+        //how are we going to handle sending students to the windows? we also need to keep track of if each
+      }
       ++lineCount;
     }
   }

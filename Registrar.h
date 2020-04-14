@@ -6,13 +6,17 @@ using namespace std;
 
 class Registrar{
   public:
-    Registrar(int windows);
+    Registrar();
     ~Registrar();
 
     assignWindow(Student* s);
     isEmpty();
+    isFull();
+    setNumWindows();
 
   private:
+    numWindows;
+    Student* windows;
 
 
 
