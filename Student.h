@@ -17,4 +17,4 @@ class Student{
     int m_windowStartTime;
     int m_timeIdle;
 
-}
+};

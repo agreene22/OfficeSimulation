@@ -1,5 +1,4 @@
-#include "Student.cpp"
-#include "Registrar.cpp"
+#include "Registrar.h"
 
 // The simulation will start at time 0, and run until all student requests have been addressed,
 // meaning the queue is empty and no more students are going to arrive. (This should tell

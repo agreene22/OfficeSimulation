@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "GenQueue.h"
-#include "Student.cpp"
+#include "Student.h"
 using namespace std;
 
 class Registrar{
@@ -9,15 +9,17 @@ class Registrar{
     Registrar();
     ~Registrar();
 
+    void setNumWindows(int numWindows);
+
     void assignWindow(Student* s);
+    void checkTime(int index, int clockTick);
     bool isEmpty();
     bool isFull();
-    void setNumWindows();
 
-  private:
-    m_numWindows;
     Student* windows;
 
+  private:
+    int m_numWindows;
+    int occupiedWindows;
 
-
-}
+};

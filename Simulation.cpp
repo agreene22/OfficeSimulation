@@ -43,9 +43,7 @@ void Simulation::Run(string fileName){
     }else if(lineCount == nextClockTickLine){
       inFS >> clockTick;
       for(int i = 0; i < windowsOpen; ++i){
-        if(windows[i]->getEndTime() == clockTick){
-          windows[i] = NULL;//removing students from the window
-        }
+        office->checkTime(i,clockTick);
       }
       //here we need to check if all the students time at the window was satisfied
       //if the time wasnt satisfied we decrement the time m_timeNeeded
@@ -53,7 +51,7 @@ void Simulation::Run(string fileName){
       ++lineCount;
     }else if (lineCount == (nextClockTickLine + 1)){
       inFS >> numStudents;
-      nextClockTickLine += numStudents + 2;
+      nextClockTickLine += numStudents + 2; // why is this + 2? im probably just dumb but im confused
       ++lineCount;
     }else{
       inFS >> studentTime;
@@ -68,6 +66,8 @@ void Simulation::Run(string fileName){
         }
       }
       ++lineCount;
+      ++clockTick;
+      ++nextClockTickLine;
     }
   }
 

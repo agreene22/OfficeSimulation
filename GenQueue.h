@@ -1,8 +1,9 @@
 #include <iostream>
+#include "DoublyLinkedList.h"
 using namespace std;
 
 template <typename T>
-class GenQueue{ // Should we make the queue circular
+class GenQueue{ 
 public:
   GenQueue(); //default constructor
   GenQueue(int maxSize); //overloaded constructor
