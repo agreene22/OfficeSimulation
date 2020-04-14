@@ -6,23 +6,19 @@ Registrar::Registrar(){
 
 void Registrar::setNumWindows(int num){
   m_numWindows = num;
-  windows = new Student[num];//not sure if i declared the array correctly
+  windows = new Student[num];
 }
 
 Registrar::~Registrar(){
   delete windows;
 }
 
-void Registrar::setNumWindows(int numWindows){
-  m_numWindows = numWindows;
-}
-
-void Registrar::assignWindow(Student* s){
+void Registrar::assignWindow(Student s){
   windows[occupiedWindows++] = s;
 }
 
-void Registrar::checkTime(int index, int clocktick){
-  if(windows[index]->getEndTime() == clockTick){
+void Registrar::checkTime(int index, int clockTick){
+  if(windows[index].getEndTime() == clockTick){
     windows[index] = NULL;//removing students from the window
   }
 }
