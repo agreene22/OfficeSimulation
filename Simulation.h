@@ -21,7 +21,7 @@ public:
   void Run(string fileName);
 
 private:
-  double m_meanWait; //is it ok that these are all doubles?
+  double m_meanWait; //is it ok that these are all doubles? // i think we should do floats
   double m_medianWait;
   double m_longestWait;
   double m_overTen;
