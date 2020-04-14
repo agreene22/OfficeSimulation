@@ -12,7 +12,7 @@ public:
 
 private:
   int m_timeNeeded;
-  int m_arrrivalTime;
+  int m_arrivalTime;
   int m_windowStartTime;
   int m_timeIdle;
 };

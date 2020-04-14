@@ -1,4 +1,3 @@
-#include <iostream>
 #include "ListNode.h"
 using namespace std;
 
@@ -16,9 +15,11 @@ public:
   int search(T val); //will return position of node depending where it is in the list
   T removeAtPos(int pos);
 
+
   unsigned int getSize();
   bool isEmpty();
   void printList();
+  T getFront();
 
 private:
   ListNode<T> *front;
@@ -48,7 +49,7 @@ unsigned int DoublyLinkedList<T>::getSize(){
 
 template <typename T>
 bool DoublyLinkedList<T>::isEmpty(){
-  return (size==0);
+  return (size == 0);
 }
 
 template <typename T>
@@ -203,4 +204,9 @@ T DoublyLinkedList<T>::removeAtPos(int pos){
   size--;
 
   return temp;
+}
+
+template <typename T>
+T DoublyLinkedList<T>::getFront(){
+  return this->front;
 }

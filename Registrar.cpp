@@ -13,12 +13,15 @@ Registrar::~Registrar(){
   delete windows;
 }
 
-void Registrar::assignWindow(Student s){
-  windows[occupiedWindows++] = s;
+void Registrar::assignWindow(int index, Student s){
+  if(windows[index] == NULL){
+    windows[index] = s;
+  }
 }
 
-void Registrar::checkTime(int index, int clockTick){
-  if(windows[index].getEndTime() == clockTick){
+void Registrar::checkTime(int index, int currTick){
+  if(windows[index].getEndTime() == currTick){
+    delete windows[index];
     windows[index] = NULL;//removing students from the window
   }
 }

@@ -3,7 +3,7 @@
 using namespace std;
 
 template <typename T>
-class GenQueue{ 
+class GenQueue{
 public:
   GenQueue(); //default constructor
   GenQueue(int maxSize); //overloaded constructor
@@ -14,7 +14,7 @@ public:
   T dequeue(); //remove
 
   //aux functions
-  T peak();
+  T peek();
   bool isFull();
   bool isEmpty();
   int getSize();
@@ -68,7 +68,8 @@ template <typename T>
 T GenQueue<T>::dequeue(){
   //error checking (if it is not empty)
   if(isEmpty()){
-    return NULL;
+    cout << "Trying to dequeue from an empty queue" << endl;
+    exit(1);
   }else{
     T c = NULL;
     c = myQueue->front;
@@ -81,8 +82,8 @@ T GenQueue<T>::dequeue(){
 }
 
 template <typename T>
-T GenQueue<T>::peak(){
-  return myQueue->front;
+T GenQueue<T>::peek(){
+  return myQueue->getFront();
   //This^ does not work because front is private in the LinkedList are we allowed to make it public or should we write a method getFront
 }
 

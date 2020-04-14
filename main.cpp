@@ -1,15 +1,14 @@
 #include <iostream>
-#include "DoublyLinkedList.h"
-#include "GenQueue.h"
+#include "Registrar.h"
 
 using namespace std;
 
 int main(int argc, char **argv){
   string fileName = "";
 
-  GenQueue<int> *queue = new GenQueue<int>();
-  queue->insert(4);
-  cout << queue->peak() << endl;
+  //GenQueue<int> *queue = new GenQueue<int>();
+  //queue->insert(4);
+  //cout << queue->peak() << endl;
 
   if(argc > 1){
     fileName = argv[1];

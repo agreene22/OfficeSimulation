@@ -17,5 +17,5 @@ Student::~Student(){
 }
 
 int Student::getEndTime(){
-  return(m_windowStartTime + m_timeNeeded)
+  return(m_windowStartTime + m_timeNeeded);
 }

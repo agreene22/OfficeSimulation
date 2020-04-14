@@ -14,7 +14,7 @@ Simulation::Simulation(){
 void Simulation::Run(string fileName){
   GenQueue<Student>* queue = new GenQueue<Student>(10);
 
-  Registar* office = new Registar();
+  Registrar* office = new Registrar();
   ifstream inFS;
 
   int clockTick = 0;
@@ -60,36 +60,17 @@ void Simulation::Run(string fileName){
       if(!office->isFull()){//office isnt full so we send the first student in line to a window
         Student* first = queue->dequeue();
         for(int i = 0; i < windowsOpen; ++i){
-          if(windows[i] == NULL){
-            windows[i] = first;//putting a student in a window
-          }
+          office->assignWindow(i, first);
         }
       }
       ++lineCount;
-      ++clockTick;
-      ++nextClockTickLine;
+      //++clockTick; i dont think we increment these but i could be wrong
+      //++nextClockTickLine;
     }
   }
 
-  // while(!inFS.eof()){
-  //   inFS >> windowsOpen; // this line is only read once while all the others need to be repeated
-  //   while(!inFS.eof()){
-  //     inFS >> time;
-  //     inFS >> students;
-  //     for(int i = 0; i < students; ++i){
-  //       inFS >> studentTime;
-  //       Student* s = new Student(studentTime, time); // maybe this shouldn't be a pointer?
-  //       queue->enqueue(s);
-  //     }
-  //     while(windowsOccupied < 5 && !queue->isEmpty()){
-  //       queue->dequeue();
-  //       windowsOccupied++;
-  //       windowsOpen--; //How do we keep track of clock ticks/how long they are at the window
-  //     }
-  //   }
-  //   break;
-  // }
 
   delete queue;
+  delete office;
   delete s;
 }

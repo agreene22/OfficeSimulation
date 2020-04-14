@@ -11,8 +11,8 @@ class Registrar{
 
     void setNumWindows(int numWindows);
 
-    void assignWindow(Student s);
-    void checkTime(int index, int clockTick);
+    void assignWindow(int index, Student s);
+    void checkTime(int index, int currTick);
     bool isEmpty();
     bool isFull();
 
