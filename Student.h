@@ -9,7 +9,7 @@ public:
   ~Student();
 
   int getEndTime();
-  bool checkTime();
+  bool checkTime(int currTick);
 
 private:
   int m_timeNeeded;

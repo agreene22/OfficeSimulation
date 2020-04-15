@@ -33,7 +33,7 @@ void Simulation::Run(string fileName){
 
   if(!inFS.is_open()){
     cout << "Error: Could not open file." << endl;
-    return 1;
+    exit(1);
   }
   cout << "Processing file." << endl;
 
@@ -45,7 +45,7 @@ void Simulation::Run(string fileName){
     }else if(lineCount == nextClockTickLine){
       inFS >> clockTick;
       for(int i = 0; i < windowsOpen; ++i){
-        office->checkTime(clockTick);
+        //office->checkTime(clockTick);
       }
       //here we need to check if all the students time at the window was satisfied
       //if the time wasnt satisfied we decrement the time m_timeNeeded
@@ -59,16 +59,16 @@ void Simulation::Run(string fileName){
       inFS >> studentTime;
       totalTime += studentTime;
       Student* s = new Student(studentTime, clockTick);
-      queue->enqueue(s);
+      queue->enqueue(s);//derefence it?
       if(!office->isFull()){//office isnt full so we send the first student in line to a window
         for(int i = 0; i < windowsOpen; ++i){
           Student* first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
-          office->assignWindow();
+          office->assignWindow(first);
+          delete first;
         }
       }
+      delete s;
       ++lineCount;
-      //++clockTick; i dont think we increment these but i could be wrong
-      //++nextClockTickLine;
     }
   }
 
@@ -81,14 +81,13 @@ void Simulation::Run(string fileName){
       }
     }
     for(int i = 0; i < windowsOpen; ++i){
-      office->
+      //office->
     }
     totalTime--;
   }
 
   delete queue;
   delete office;
-  delete s;
 }
 
 void Simulation::Calculate(){

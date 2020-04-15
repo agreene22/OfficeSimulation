@@ -1,27 +1,27 @@
 #include "Window.h"
 
 Window::Window(){
-  studentOccupy = NULL;
+  m_currStudent = NULL;
   m_idleTime = 0;
 }
 
 Window::Window(Student* s, int idleTime){
-  studentOccupy = s;
-  m_idleTime = idleTime
+  m_currStudent = s;
+  m_idleTime = idleTime;
 }
 
 Window::~Window(){
-  delete s;
+  delete m_currStudent;
 }
 
 bool Window::isOpen(){
-  return (studentOccupy == NULL);
+  return (m_currStudent == NULL);
 }
 
 void Window::setStudent(Student* s){
-  studentOccupy = s;
+  m_currStudent = s;
 }
 
 void Window::open(){
-  studentOccupy = NULL;
+  m_currStudent = NULL;
 }

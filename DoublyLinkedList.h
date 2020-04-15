@@ -8,8 +8,8 @@ public:
   ~DoublyLinkedList();
 
   void insertFront(T data);
-  void insertBack(T data); //There is no generic insert, only front and back, do we need a generic?
-  T removeFront();
+  void insertBack(T* data); //There is no generic insert, only front and back, do we need a generic?
+  T* removeFront();
   // T removeBack(); // Need to write this method still
   T remove(T value);
   int search(T val); //will return position of node depending where it is in the list
@@ -62,8 +62,8 @@ void DoublyLinkedList<T>::printList(){
 }
 
 template <typename T>
-void DoublyLinkedList<T>::insertFront(T d){
-  ListNode<T> *node = new ListNode<T>(d);
+void DoublyLinkedList<T>::insertFront(T data){
+  ListNode<T> *node = new ListNode<T>(data);
 
   if(isEmpty()){
     back = node;
@@ -78,8 +78,8 @@ void DoublyLinkedList<T>::insertFront(T d){
 }
 
 template <typename T>
-void DoublyLinkedList<T>::insertBack(T d){
-  ListNode<T> *node = new ListNode<T>(d);
+void DoublyLinkedList<T>::insertBack(T* data){
+  ListNode<T> *node = new ListNode<T>(data);
 
   if(isEmpty()){
     front = node;
@@ -94,7 +94,7 @@ void DoublyLinkedList<T>::insertBack(T d){
 }
 
 template <typename T>
-T DoublyLinkedList<T>::removeFront(){
+T* DoublyLinkedList<T>::removeFront(){
   ListNode<T> *tempNode = front;
 
   //error check, make sure list is not empty before attempting to remove
@@ -109,7 +109,7 @@ T DoublyLinkedList<T>::removeFront(){
 
   front = front->next;
   tempNode->next = NULL;
-  T temp = tempNode->data;
+  T* temp = tempNode->data;
   size--;
   delete tempNode;
 

@@ -10,8 +10,8 @@ public:
   ~GenQueue();
 
   //core functions
-  void enqueue(T d); //insert
-  T dequeue(); //remove
+  void enqueue(T* d); //insert
+  T* dequeue(); //remove
 
   //aux functions
   T peek();
@@ -53,7 +53,7 @@ GenQueue<T>::~GenQueue(){
 }
 
 template <typename T>
-void GenQueue<T>::enqueue(T d){
+void GenQueue<T>::enqueue(T* d){
   if(isFull()){
     return;
   }else{
@@ -65,16 +65,15 @@ void GenQueue<T>::enqueue(T d){
 }
 
 template <typename T>
-T GenQueue<T>::dequeue(){
+T* GenQueue<T>::dequeue(){
   //error checking (if it is not empty)
   if(isEmpty()){
     cout << "Trying to dequeue from an empty queue" << endl;
     exit(1);
   }else{
-    T c = NULL;
-    c = myQueue->front;
+    T* c = myQueue->removeFront();
     //This^ does not work because front is private in the LinkedList are we allowed to make it public or should we write a method getFront
-    ++front;
+    ++front; //does this do anything?
     // front = (front+1)%mSize //for circular queue
     --numElements;
     return c;

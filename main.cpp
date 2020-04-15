@@ -17,6 +17,6 @@ int main(int argc, char **argv){
     cout << "USAGE: ./a.out [file name]" << endl;
   }
 
-  delete queue;
+  //delete queue;
   return 0;
 }

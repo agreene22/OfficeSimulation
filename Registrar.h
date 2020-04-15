@@ -1,8 +1,6 @@
-#include <iostream>
 #include <string>
 #include "GenQueue.h"
-#include "Student.h"
-#include "Window.h"
+#include "Window.h"//no need to include student because it is included in the window.h file
 using namespace std;
 
 class Registrar{
@@ -12,7 +10,7 @@ class Registrar{
 
     void setNumWindows(int numWindows);
 
-    void assignWindow(Student* s);
+    void assignWindow(Student* s);//was a pointer im changing it to just student for now
     // void checkTime(int index, int currTick);
     bool isEmpty();
     bool isFull();
