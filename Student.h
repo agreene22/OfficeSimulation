@@ -6,10 +6,10 @@ class Student{
 public:
   Student();
   Student(int time, int arrivalTime);
-  ~Student();
 
   int getEndTime();
   bool checkTime(int currTick);
+  void incrementIdleTime(int currTick);
 
 private:
   int m_timeNeeded;

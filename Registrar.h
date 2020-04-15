@@ -12,6 +12,7 @@ class Registrar{
 
     void assignWindow(Student* s);//was a pointer im changing it to just student for now
     void checkTime(int index, int currTick);
+    bool checkOpen();
     bool isEmpty();
     bool isFull();
 

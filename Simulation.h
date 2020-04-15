@@ -21,11 +21,11 @@ public:
   void Calculate();
 
 private:
-  double m_meanWait; //is it ok that these are all doubles? // i think we should do floats
-  double m_medianWait;
-  double m_longestWait;
-  double m_overTen;
-  double m_meanIdle;
-  double m_longestIdle;
-  double m_windowsIdle;
+  float m_meanStudentWait; 
+  float m_medianStudentWait;
+  float m_longestStudentWait;
+  float m_studentsOverTen;
+  float m_meanWindowIdle;
+  float m_longestWindowIdle;
+  float m_windowsIdleOver5;
 };

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-class Window{ //this is getting complicated but i think this class is necessary so we can link the window occupied with the student who occupies it
+class Window{
 public:
   Window();
   Window(Student* s, int idleTime);
@@ -12,6 +12,7 @@ public:
   bool isOpen();
   void setStudent(Student* s);
   void open();
+  void incrementIdleTime();
   Student* getStudent();
 
 private:

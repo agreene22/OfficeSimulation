@@ -29,3 +29,7 @@ void Window::open(){
 Student* Window::getStudent(){
   return m_currStudent;
 }
+
+void Window::incrementIdleTime(){
+  m_idleTime++;
+}

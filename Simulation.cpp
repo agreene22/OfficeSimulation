@@ -2,19 +2,20 @@
 #include <fstream>
 
 Simulation::Simulation(){
-  m_meanWait = 0.0;
-  m_medianWait = 0.0; // store waits in an array and find median?
-  m_longestWait = 0.0;
-  m_overTen = 0.0;
-  m_meanIdle = 0.0;
-  m_longestIdle = 0.0;
-  m_windowsIdle = 0.0;
+  m_meanStudentWait = 0.0;
+  m_medianStudentWait = 0.0; // store waits in an array and find median?
+  m_longestStudentWait = 0.0;
+  m_studentsOverTen = 0.0;
+  m_meanWindowIdle = 0.0;
+  m_longestWindowIdle = 0.0;
+  m_windowsIdleOver5 = 0.0;
 }
 
 void Simulation::Run(string fileName){
   GenQueue<Student>* queue = new GenQueue<Student>(10);
 
   Registrar* office = new Registrar();
+  Student* first;
   ifstream inFS;
 
   float clockTick = 0;
@@ -62,9 +63,9 @@ void Simulation::Run(string fileName){
       queue->enqueue(s);//derefence it?
       if(!office->isFull()){//office isnt full so we send the first student in line to a window
         for(int i = 0; i < windowsOpen; ++i){
-          Student* first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
+          first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
           office->assignWindow(first);
-          delete first;
+          // delete first;
         }
       }
       delete s;
@@ -73,19 +74,29 @@ void Simulation::Run(string fileName){
   }
 
   // totalTime /= numWindows; this isn't right but we can do something to totalTime
-  while(totalTime > 0){ // something like this or a for loop with increasing clock tick
-    if(!office->isFull()){
-      for(int i = 0; i < windowsOpen; ++i){
-        Student* first = queue->dequeue();
-        office->assignWindow(first);
+  // could be a while(!queue->isEmpty() && office->checkOpen()) and run all code in there
+  // checkOpen could return a boolean if all windoows are open (currently have this method only incrementing idleTime)
+  time = 0;
+  while(!queue->isEmpty() && office->checkOpen()){
+    if(!office->isFull() && !queue->isEmpty()){
+      first = queue->dequeue();
+      office->assignWindow(first);
+    }else if(!office->isFull() && queue->isEmpty()){
+      office->checkOpen(); // increments idle time for open windows without a student
+    }else{
+      for(int i = 0; i < queue->getSize(); ++i){
+        // student->incrementIdleTime(time);
+        // ^^for each student in the queue call incrementIdleTime
+        // need to be able to access each element of the queue
       }
     }
-    for(int i = 0; i < windowsOpen; ++i){
-      //office->
-    }
-    totalTime--;
+    time++;
   }
+  // while(totalTime > 0){ // something like this or a for loop with increasing clock tick
+  //   totalTime--;
+  // }
 
+  delete first;
   delete queue;
   delete office;
 }

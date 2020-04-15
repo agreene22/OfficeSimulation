@@ -42,6 +42,17 @@ void Registrar::checkTime(int index, int currTick){
   }
 }
 
+bool Registrar::checkOpen(){
+  for(int i = 0; i < m_numWindows; ++i){
+    if(windows[i].isOpen()){
+      windows[i].incrementIdleTime();
+    }else{
+      return false; // if any window is occupied it will return false
+    }
+  }
+  return true;
+}
+
 bool Registrar::isEmpty(){
   return (occupiedWindows == 0);
 }
