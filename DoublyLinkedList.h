@@ -7,8 +7,8 @@ public:
   DoublyLinkedList();
   ~DoublyLinkedList();
 
-  void insertFront(T data);
-  void insertBack(T* data); //There is no generic insert, only front and back, do we need a generic?
+  void insertFront(T* d);
+  void insertBack(T* d); //There is no generic insert, only front and back, do we need a generic?
   T* removeFront();
   // T removeBack(); // Need to write this method still
   T remove(T value);
@@ -62,8 +62,8 @@ void DoublyLinkedList<T>::printList(){
 }
 
 template <typename T>
-void DoublyLinkedList<T>::insertFront(T data){
-  ListNode<T> *node = new ListNode<T>(data);
+void DoublyLinkedList<T>::insertFront(T* d){
+  ListNode<T> *node = new ListNode<T>(d);
 
   if(isEmpty()){
     back = node;
@@ -78,8 +78,8 @@ void DoublyLinkedList<T>::insertFront(T data){
 }
 
 template <typename T>
-void DoublyLinkedList<T>::insertBack(T* data){
-  ListNode<T> *node = new ListNode<T>(data);
+void DoublyLinkedList<T>::insertBack(T* d){
+  ListNode<T> *node = new ListNode<T>(d);
 
   if(isEmpty()){
     front = node;
