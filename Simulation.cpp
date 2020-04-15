@@ -17,7 +17,7 @@ void Simulation::Run(string fileName){
   Registrar* office = new Registrar();
   ifstream inFS;
 
-  float clockTick = 0.0;
+  float clockTick = 0;
   float nextClockTickLine = 1.0;
   float lineCount = 0.0;
 
@@ -45,7 +45,7 @@ void Simulation::Run(string fileName){
     }else if(lineCount == nextClockTickLine){
       inFS >> clockTick;
       for(int i = 0; i < windowsOpen; ++i){
-        //office->checkTime(clockTick);
+        office->checkTime(i, clockTick);//checking if each student is done
       }
       //here we need to check if all the students time at the window was satisfied
       //if the time wasnt satisfied we decrement the time m_timeNeeded

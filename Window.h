@@ -12,6 +12,7 @@ public:
   bool isOpen();
   void setStudent(Student* s);
   void open();
+  Student* getStudent();
 
 private:
   Student* m_currStudent;

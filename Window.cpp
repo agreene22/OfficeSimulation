@@ -25,3 +25,7 @@ void Window::setStudent(Student* s){
 void Window::open(){
   m_currStudent = NULL;
 }
+
+Student* Window::getStudent(){
+  return m_currStudent;
+}

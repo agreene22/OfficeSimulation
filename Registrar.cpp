@@ -36,12 +36,11 @@ void Registrar::assignWindow(Student* s){
 //   }
 // }
 
-// void Registrar::checkTime(int index, int currTick){
-//   if(windows[index].getEndTime() == currTick){
-//     delete windows[index];
-//     windows[index] = NULL;//removing students from the window
-//   }
-// }
+void Registrar::checkTime(int index, int currTick){
+  if(windows[index].getStudent()->getEndTime() == currTick){
+    windows[index].setStudent(NULL);//removing students from the window
+  }
+}
 
 bool Registrar::isEmpty(){
   return (occupiedWindows == 0);
