@@ -77,9 +77,9 @@ void Simulation::Run(string fileName){
   // could be a while(!queue->isEmpty() && office->checkOpen()) and run all code in there
   // checkOpen could return a boolean if all windoows are open (currently have this method only incrementing idleTime)
   time = 0;
-  while(!queue->isEmpty() && office->checkOpen()){
+  while(!queue->isEmpty() && office->checkOpen()){//why are we doing check open? it will quit if any window is occupied
     if(!office->isFull() && !queue->isEmpty()){
-      first = queue->peak();
+      Student* first = queue->peek();
       if(first->getArrival() < time){
         continue;
       }else{

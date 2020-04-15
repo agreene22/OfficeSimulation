@@ -19,7 +19,7 @@ public:
   unsigned int getSize();
   bool isEmpty();
   void printList();
-  T getFront();
+  T* getFront();
 
 private:
   ListNode<T> *front;
@@ -207,6 +207,6 @@ T DoublyLinkedList<T>::removeAtPos(int pos){
 }
 
 template <typename T>
-T DoublyLinkedList<T>::getFront(){
-  return this->front;
+T* DoublyLinkedList<T>::getFront(){
+  return this->front->data;
 }

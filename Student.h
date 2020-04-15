@@ -10,6 +10,7 @@ public:
   int getEndTime();
   bool checkTime(int currTick);
   void incrementIdleTime(int currTick);
+  int getArrival();
 
 private:
   int m_timeNeeded;

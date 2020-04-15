@@ -14,7 +14,7 @@ public:
   T* dequeue(); //remove
 
   //aux functions
-  T peek();
+  T* peek();
   bool isFull();
   bool isEmpty();
   int getSize();
@@ -81,7 +81,7 @@ T* GenQueue<T>::dequeue(){
 }
 
 template <typename T>
-T GenQueue<T>::peek(){
+T* GenQueue<T>::peek(){
   return myQueue->getFront();
   //This^ does not work because front is private in the LinkedList are we allowed to make it public or should we write a method getFront
 }

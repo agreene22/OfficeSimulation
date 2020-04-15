@@ -28,3 +28,7 @@ void Student::incrementIdleTime(int currTick){
     m_timeIdle++;
   }
 }
+
+int Student::getArrival(){
+  return m_arrivalTime;
+}
