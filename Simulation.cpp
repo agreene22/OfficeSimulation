@@ -79,8 +79,13 @@ void Simulation::Run(string fileName){
   time = 0;
   while(!queue->isEmpty() && office->checkOpen()){
     if(!office->isFull() && !queue->isEmpty()){
-      first = queue->dequeue();
-      office->assignWindow(first);
+      first = queue->peak();
+      if(first->getArrival() < time){
+        continue;
+      }else{
+        first = queue->dequeue();
+        office->assignWindow(first);
+      }
     }else if(!office->isFull() && queue->isEmpty()){
       office->checkOpen(); // increments idle time for open windows without a student
     }else{
