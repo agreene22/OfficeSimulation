@@ -73,11 +73,10 @@ void Simulation::Run(string fileName){
     }
   }
 
-  // totalTime /= numWindows; this isn't right but we can do something to totalTime
   // could be a while(!queue->isEmpty() && office->checkOpen()) and run all code in there
   // checkOpen could return a boolean if all windoows are open (currently have this method only incrementing idleTime)
   time = 0;
-  while(!queue->isEmpty() && office->checkOpen()){//why are we doing check open? it will quit if any window is occupied
+  while(!queue->isEmpty() || !office->checkOpen()){//why are we doing check open? it will quit if any window is occupied
     if(!office->isFull() && !queue->isEmpty()){
       Student* first = queue->peek();
       if(first->getArrival() < time){
@@ -97,6 +96,8 @@ void Simulation::Run(string fileName){
     }
     time++;
   }
+
+  // totalTime /= numWindows; this isn't right but we can do something to totalTime
   // while(totalTime > 0){ // something like this or a for loop with increasing clock tick
   //   totalTime--;
   // }

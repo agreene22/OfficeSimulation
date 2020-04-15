@@ -1,6 +1,6 @@
 #include <string>
 #include "GenQueue.h"
-#include "Window.h"//no need to include student because it is included in the window.h file
+#include "Window.h"
 using namespace std;
 
 class Registrar{
@@ -10,7 +10,7 @@ class Registrar{
 
     void setNumWindows(int numWindows);
 
-    void assignWindow(Student* s);//was a pointer im changing it to just student for now
+    void assignWindow(Student* s);
     void checkTime(int index, int currTick);
     bool checkOpen();
     bool isEmpty();
