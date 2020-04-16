@@ -208,5 +208,5 @@ T DoublyLinkedList<T>::removeAtPos(int pos){
 
 template <typename T>
 T* DoublyLinkedList<T>::getFront(){
-  return this->front->data;
+  return this->front;
 }
