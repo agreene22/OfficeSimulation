@@ -33,3 +33,7 @@ Student* Window::getStudent(){
 void Window::incrementIdleTime(){
   m_idleTime++;
 }
+
+float Window::getIdleTime(){
+  return m_idleTime;
+}

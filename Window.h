@@ -14,8 +14,9 @@ public:
   void open();
   void incrementIdleTime();
   Student* getStudent();
+  float getIdleTime();
 
 private:
   Student* m_currStudent;
-  int m_idleTime;
+  float m_idleTime;
 };

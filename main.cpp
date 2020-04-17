@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Registrar.h"
+#include "Simulation.h"
 
 using namespace std;
 
@@ -12,11 +12,16 @@ int main(int argc, char **argv){
 
   if(argc > 1){
     fileName = argv[1];
+
+    Simulation* sim = new Simulation();
+    sim->Run(fileName);
+    sim->Calculate();
+
+    delete sim;
   }else{
     cout << "INVALID USAGE: please enter name of a text file" << endl;
     cout << "USAGE: ./a.out [file name]" << endl;
   }
 
-  //delete queue;
   return 0;
 }

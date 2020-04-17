@@ -9,12 +9,14 @@ class Registrar{
     ~Registrar();
 
     void setNumWindows(int numWindows);
+    int getSize();
 
     void assignWindow(Student* s);
     void checkTime(int index, int currTick);
     bool checkOpen();
     bool isEmpty();
     bool isFull();
+    Window getWindow(int);
 
     Window* windows;
 

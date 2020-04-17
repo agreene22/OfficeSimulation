@@ -11,6 +11,7 @@ Simulation::Simulation(){
   m_windowsIdleOver5 = 0.0;
   queue = new GenQueue<Student>(10); // we need to be able to make this the correct size
   students = new DoublyLinkedList<Student>();
+  office = new Registrar();
 }
 
 Simulation::~Simulation(){
@@ -21,7 +22,7 @@ Simulation::~Simulation(){
 void Simulation::Run(string fileName){
   // GenQueue<Student>* queue = new GenQueue<Student>(10);
 
-  Registrar* office = new Registrar();
+  // Registrar* office = new Registrar();
   // Student* first;
   ifstream inFS;
 
@@ -83,25 +84,28 @@ void Simulation::Run(string fileName){
   // could be a while(!queue->isEmpty() && office->checkOpen()) and run all code in there
   // checkOpen could return a boolean if all windoows are open (currently have this method only incrementing idleTime)
   time = 0;
-  while(!queue->isEmpty() || !office->checkOpen()){//why are we doing check open? it will quit if any window is occupied
+  Student* first; // declaring up here so we don't redeclare every time
+  while(!queue->isEmpty() || !office->checkOpen()){//it should run if there is someone in the queue or someone at a window now
     if(!office->isFull() && !queue->isEmpty()){
-      Student* first = queue->peek();
+      first = queue->peek();
       if(first->getArrival() < time){
         continue;
       }else{
         first = queue->dequeue();
         office->assignWindow(first);
-        students->insertBack(first);
-      }
-    }else if(!office->isFull() && queue->isEmpty()){
-      office->checkOpen(); // increments idle time for open windows without a student
-    }else{
-      for(int i = 0; i < queue->getSize(); ++i){
-        // student->incrementIdleTime(time);
-        // ^^for each student in the queue call incrementIdleTime
-        // need to be able to access each element of the queue
+        students->insertBack(first); //Linked List of students after being helped
       }
     }
+    if(!office->isFull() && queue->isEmpty()){
+      office->checkOpen(); // increments idle time for open windows without a student
+    }
+    // else{ // this else might not be necessary anymore because I created a getWaitTime method
+    //   for(int i = 0; i < queue->getSize(); ++i){
+    //     // student->incrementIdleTime(time);
+    //     // ^^for each student in the queue call incrementIdleTime
+    //     // need to be able to access each element of the queue
+    //   }
+    // }
     time++;
   }
 
@@ -110,7 +114,7 @@ void Simulation::Run(string fileName){
   //   totalTime--;
   // }
 
-  // delete first;
+  delete first;
   delete queue;
   delete office;
   delete students;
@@ -124,7 +128,7 @@ void Simulation::Calculate(){
   size = students->getSize();
 
   for(int i = 0; i < size; ++i){
-    Student* s = students->accessAtPos(i);
+    Student* s = students->accessAtPos(i); // this method gives an error whether or not it returns a pointer or not
     waitTime = s->getWaitTime();
     totalStudentWait += waitTime;
     if(waitTime > m_longestStudentWait){
@@ -141,10 +145,21 @@ void Simulation::Calculate(){
   }
   m_meanStudentWait = (totalStudentWait/size);
 
+  float totalWindowIdle = 0.0;
+  float idle = 0.0;
+  for(int i = 0; i < office->getSize(); ++i){
+    idle = office->getWindow(i).getIdleTime();
+    totalWindowIdle += idle;
+    if(idle > m_longestWindowIdle){
+      m_longestWindowIdle = idle;
+    }
+    if(idle > 5){
+      m_windowsIdleOver5++;
+    }
+  }
+
   // still need to calculate these
-  m_meanWindowIdle;
-  m_longestWindowIdle;
-  m_windowsIdleOver5;
+  m_meanWindowIdle = (totalWindowIdle/(office->getSize()));;
 
   cout << "Mean Student Wait: " << m_meanStudentWait << endl;
   cout << "Median Student Wait: " << m_medianStudentWait << endl;

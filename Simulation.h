@@ -31,4 +31,5 @@ private:
   float m_windowsIdleOver5;
   GenQueue<Student>* queue;
   DoublyLinkedList<Student>* students;
+  Registrar* office;
 };

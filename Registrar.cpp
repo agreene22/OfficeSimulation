@@ -12,6 +12,10 @@ void Registrar::setNumWindows(int num){
   }
 }
 
+int Registrar::getSize(){
+  return m_numWindows;
+}
+
 Registrar::~Registrar(){
   //for(int i = 0; i < m_numWindows; ++i){
     //delete windows[i];
@@ -60,4 +64,20 @@ bool Registrar::isEmpty(){
 
 bool Registrar::isFull(){
   return (occupiedWindows == m_numWindows);
+}
+
+// float Registrar::calculateWindowIdleTime(){
+//   float totalWindowIdle = 0.0;
+//   for(int i = 0; i < m_numWindows; ++i){
+//     windows[i].getIdleTime();
+//   }
+// }
+
+Window Registrar::getWindow(int pos){
+  for(int i = 0; i < m_numWindows; ++i){
+    if(i == pos){
+      return windows[i];
+    }
+  }
+  // return NULL; // cannot return NULL
 }
