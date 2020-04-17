@@ -12,7 +12,7 @@ class Registrar{
     int getSize();
 
     void assignWindow(Student* s);
-    void checkTime(int index, int currTick);
+    void checkTime(int currTick);
     bool checkOpen();
     bool isEmpty();
     bool isFull();

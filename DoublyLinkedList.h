@@ -125,14 +125,14 @@ T* DoublyLinkedList<T>::accessAtPos(int pos){
   while(idx != pos){
     curr = curr->next;
   }
-  if(curr == NULL){ // position wasn't found
-    exit(1); //?????
-    // return NULL; //can't return just NULL
-  }
+  // if(curr == NULL){ // position wasn't found
+  //   exit(1); //?????
+  //   // return NULL; //can't return just NULL
+  // }
   T* temp = curr->data;
   delete curr;
 
-  return *temp;
+  return temp;
 }
 
 //need to find the value in the list before we can delete

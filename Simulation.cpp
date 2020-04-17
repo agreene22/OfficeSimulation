@@ -26,17 +26,15 @@ void Simulation::Run(string fileName){
   // Student* first;
   ifstream inFS;
 
-  float clockTick = 0;
-  float nextClockTickLine = 1.0;
-  float lineCount = 0.0;
+  int clockTick = 0;
+  int nextClockTickLine = 1;
+  int lineCount = 0;
 
   float windowsOpen = 0.0;
   float time = 0.0;
   float numStudents = 0.0;
   float studentTime = 0.0;
   // float windowsOccupied = 0.0;
-
-  float totalTime = 0.0;
 
   inFS.open(fileName);
 
@@ -47,37 +45,44 @@ void Simulation::Run(string fileName){
   cout << "Processing file." << endl;
 
   while(!inFS.eof()){
-    if(lineCount = 0){
-      inFS >> windowsOpen;
-      office->setNumWindows(windowsOpen);
-      ++lineCount;
-    }else if(lineCount == nextClockTickLine){
-      inFS >> clockTick;
-      for(int i = 0; i < windowsOpen; ++i){
-        office->checkTime(i, clockTick);//checking if each student is done
+    if(!inFS.fail()){
+      cout << lineCount << endl; // delete later
+      if(lineCount == 0){
+        inFS >> windowsOpen;
+        cout << "windows open" << endl;
+        office->setNumWindows(windowsOpen); // giving seg fault
+        ++lineCount;
+        cout << "here" << endl;
+      }else if(lineCount == nextClockTickLine){
+        inFS >> clockTick;
+        // for(int i = 0; i < windowsOpen; ++i){
+        //   cout << "here" << endl;
+        //   office->checkTime(windowsOpen, clockTick);//checking if each student is done
+        //   cout << "i think this is the problem" << endl;
+        // }
+        ++lineCount;
+        //here we need to check if all the students time at the window was satisfied
+        //if the time wasnt satisfied we decrement the time m_timeNeeded
+        //if it was satisfied we take them out of the window
+      }else if (lineCount == (nextClockTickLine + 1)){
+        inFS >> numStudents;
+        nextClockTickLine += numStudents + 2;
+        ++lineCount;
+      }else{
+        inFS >> studentTime;
+        Student* s = new Student(studentTime, clockTick);
+        queue->enqueue(s); // when I run it with the test file it enqueue's 9 times.... (number of lines in file)
+        cout << "enqueue" << endl;
+        // if(!office->isFull()){//office isnt full so we send the first student in line to a window
+        //   for(int i = 0; i < windowsOpen; ++i){
+        //     first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
+        //     office->assignWindow(first);
+        //     // delete first;
+        //   }
+        // }
+        ++lineCount;
+        delete s;
       }
-      //here we need to check if all the students time at the window was satisfied
-      //if the time wasnt satisfied we decrement the time m_timeNeeded
-      //if it was satisfied we take them out of the window
-      ++lineCount;
-    }else if (lineCount == (nextClockTickLine + 1)){
-      inFS >> numStudents;
-      nextClockTickLine += numStudents + 2; // why is this + 2? im probably just dumb but im confused
-      ++lineCount;
-    }else{
-      inFS >> studentTime;
-      totalTime += studentTime;
-      Student* s = new Student(studentTime, clockTick);
-      queue->enqueue(s);//derefence it?
-      // if(!office->isFull()){//office isnt full so we send the first student in line to a window
-      //   for(int i = 0; i < windowsOpen; ++i){
-      //     first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
-      //     office->assignWindow(first);
-      //     // delete first;
-      //   }
-      // }
-      delete s;
-      ++lineCount;
     }
   }
 
@@ -98,6 +103,7 @@ void Simulation::Run(string fileName){
     }
     if(!office->isFull() && queue->isEmpty()){
       office->checkOpen(); // increments idle time for open windows without a student
+      office->checkTime(time);
     }
     // else{ // this else might not be necessary anymore because I created a getWaitTime method
     //   for(int i = 0; i < queue->getSize(); ++i){
@@ -108,11 +114,6 @@ void Simulation::Run(string fileName){
     // }
     time++;
   }
-
-  // totalTime /= numWindows; this isn't right but we can do something to totalTime
-  // while(totalTime > 0){ // something like this or a for loop with increasing clock tick
-  //   totalTime--;
-  // }
 
   delete first;
   delete queue;
@@ -128,7 +129,7 @@ void Simulation::Calculate(){
   size = students->getSize();
 
   for(int i = 0; i < size; ++i){
-    Student* s = students->accessAtPos(i); // this method gives an error whether or not it returns a pointer or not
+    Student* s = students->accessAtPos(i);
     waitTime = s->getWaitTime();
     totalStudentWait += waitTime;
     if(waitTime > m_longestStudentWait){
@@ -157,8 +158,6 @@ void Simulation::Calculate(){
       m_windowsIdleOver5++;
     }
   }
-
-  // still need to calculate these
   m_meanWindowIdle = (totalWindowIdle/(office->getSize()));;
 
   cout << "Mean Student Wait: " << m_meanStudentWait << endl;
