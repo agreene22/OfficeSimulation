@@ -89,6 +89,7 @@ void DoublyLinkedList<T>::insertBack(T* d){
     //not isEmpty
     back->next = node;
     node->prev = back;
+    node->prev->next = node; //added
   }
   back = node;
   size++;
@@ -105,11 +106,12 @@ T* DoublyLinkedList<T>::removeFront(){
   }
   else{
     //more than one node in the list
-    front->next->prev = NULL;
+    front->next->prev = NULL; // this is the line with the segmentation fault
   }
 
   front = front->next;
   tempNode->next = NULL;
+  tempNode->prev = NULL;
   T* temp = tempNode->data;
   size--;
   delete tempNode;

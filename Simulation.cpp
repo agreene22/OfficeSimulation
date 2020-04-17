@@ -49,10 +49,8 @@ void Simulation::Run(string fileName){
       cout << lineCount << endl; // delete later
       if(lineCount == 0){
         inFS >> windowsOpen;
-        cout << "windows open" << endl;
         office->setNumWindows(windowsOpen); // giving seg fault
         ++lineCount;
-        cout << "here" << endl;
       }else if(lineCount == nextClockTickLine){
         inFS >> clockTick;
         // for(int i = 0; i < windowsOpen; ++i){
@@ -93,15 +91,20 @@ void Simulation::Run(string fileName){
   while(!queue->isEmpty() || !office->checkOpen()){//it should run if there is someone in the queue or someone at a window now
     if(!office->isFull() && !queue->isEmpty()){
       first = queue->peek();
+      cout << "peek" << endl;
       if(first->getArrival() < time){
+        cout << "get arrival" << endl;
         continue;
       }else{
+        cout << "to dequeue" << endl;
         first = queue->dequeue();
+        cout << "dequeue" << endl;
         office->assignWindow(first);
         students->insertBack(first); //Linked List of students after being helped
       }
     }
     if(!office->isFull() && queue->isEmpty()){
+      cout << "at window but queue empty" << endl;
       office->checkOpen(); // increments idle time for open windows without a student
       office->checkTime(time);
     }
