@@ -118,15 +118,39 @@ void Simulation::Run(string fileName){
 
 void Simulation::Calculate(){
   float totalStudentWait = 0.0;
+  float waitTime = 0.0;
+  int size = 0;
 
-  for(int i = 0; i < students->getSize(); ++i){
-    // totalStudentWait += students->accessAtPos(i).getWaitTime();
+  size = students->getSize();
+
+  for(int i = 0; i < size; ++i){
+    Student* s = students->accessAtPos(i);
+    waitTime = s->getWaitTime();
+    totalStudentWait += waitTime;
+    if(waitTime > m_longestStudentWait){
+      m_longestStudentWait = waitTime;
+    }
+    if(i == (size/2)){
+      m_medianStudentWait = waitTime;
+    }
+    if(waitTime > 10){
+      m_studentsOverTen++;
+    }
+
+    delete s;
   }
-  m_meanStudentWait = (totalStudentWait/(students->getSize()));
-  m_medianStudentWait;
-  m_longestStudentWait;
-  m_studentsOverTen;
+  m_meanStudentWait = (totalStudentWait/size);
+
+  // still need to calculate these
   m_meanWindowIdle;
   m_longestWindowIdle;
   m_windowsIdleOver5;
+
+  cout << "Mean Student Wait: " << m_meanStudentWait << endl;
+  cout << "Median Student Wait: " << m_medianStudentWait << endl;
+  cout << "Longest Student Wait: " << m_longestStudentWait << endl;
+  cout << "Students who waited over ten minutes: " << m_studentsOverTen << endl;
+  cout << "Mean Window Idle Time: " << m_meanWindowIdle << endl;
+  cout << "Longest Window Idle Time: " << m_longestWindowIdle << endl;
+  cout << "Windows idle over five minutes: " << m_windowsIdleOver5 << endl;
 }
