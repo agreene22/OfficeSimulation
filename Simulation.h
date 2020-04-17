@@ -16,16 +16,19 @@
 class Simulation{
 public:
   Simulation();
+  ~Simulation();
 
   void Run(string fileName);
   void Calculate();
 
 private:
-  float m_meanStudentWait; 
+  float m_meanStudentWait;
   float m_medianStudentWait;
   float m_longestStudentWait;
   float m_studentsOverTen;
   float m_meanWindowIdle;
   float m_longestWindowIdle;
   float m_windowsIdleOver5;
+  GenQueue<Student>* queue;
+  DoublyLinkedList<Student>* students;
 };

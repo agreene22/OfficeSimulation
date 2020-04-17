@@ -11,6 +11,8 @@ public:
   bool checkTime(int currTick);
   void incrementIdleTime(int currTick);
   int getArrival();
+  void calculateWaitTime();
+  float getWaitTime();
 
 private:
   int m_timeNeeded;

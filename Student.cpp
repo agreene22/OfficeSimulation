@@ -32,3 +32,11 @@ void Student::incrementIdleTime(int currTick){
 int Student::getArrival(){
   return m_arrivalTime;
 }
+
+void Student::calculateWaitTime(){
+  m_timeIdle = m_arrivalTime - m_windowStartTime;
+}
+
+float Student::getWaitTime(){
+  return m_timeIdle;
+}

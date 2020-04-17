@@ -9,13 +9,20 @@ Simulation::Simulation(){
   m_meanWindowIdle = 0.0;
   m_longestWindowIdle = 0.0;
   m_windowsIdleOver5 = 0.0;
+  queue = new GenQueue<Student>(10); // we need to be able to make this the correct size
+  students = new DoublyLinkedList<Student>();
+}
+
+Simulation::~Simulation(){
+  delete queue;
+  delete students;
 }
 
 void Simulation::Run(string fileName){
-  GenQueue<Student>* queue = new GenQueue<Student>(10);
+  // GenQueue<Student>* queue = new GenQueue<Student>(10);
 
   Registrar* office = new Registrar();
-  Student* first;
+  // Student* first;
   ifstream inFS;
 
   float clockTick = 0;
@@ -26,7 +33,7 @@ void Simulation::Run(string fileName){
   float time = 0.0;
   float numStudents = 0.0;
   float studentTime = 0.0;
-  float windowsOccupied = 0.0;
+  // float windowsOccupied = 0.0;
 
   float totalTime = 0.0;
 
@@ -61,13 +68,13 @@ void Simulation::Run(string fileName){
       totalTime += studentTime;
       Student* s = new Student(studentTime, clockTick);
       queue->enqueue(s);//derefence it?
-      if(!office->isFull()){//office isnt full so we send the first student in line to a window
-        for(int i = 0; i < windowsOpen; ++i){
-          first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
-          office->assignWindow(first);
-          // delete first;
-        }
-      }
+      // if(!office->isFull()){//office isnt full so we send the first student in line to a window
+      //   for(int i = 0; i < windowsOpen; ++i){
+      //     first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
+      //     office->assignWindow(first);
+      //     // delete first;
+      //   }
+      // }
       delete s;
       ++lineCount;
     }
@@ -84,6 +91,7 @@ void Simulation::Run(string fileName){
       }else{
         first = queue->dequeue();
         office->assignWindow(first);
+        students->insertBack(first);
       }
     }else if(!office->isFull() && queue->isEmpty()){
       office->checkOpen(); // increments idle time for open windows without a student
@@ -102,11 +110,23 @@ void Simulation::Run(string fileName){
   //   totalTime--;
   // }
 
-  delete first;
+  // delete first;
   delete queue;
   delete office;
+  delete students;
 }
 
 void Simulation::Calculate(){
-  // Define this later
+  float totalStudentWait = 0.0;
+
+  for(int i = 0; i < students->getSize(); ++i){
+    // totalStudentWait += students->accessAtPos(i).getWaitTime();
+  }
+  m_meanStudentWait = (totalStudentWait/(students->getSize()));
+  m_medianStudentWait;
+  m_longestStudentWait;
+  m_studentsOverTen;
+  m_meanWindowIdle;
+  m_longestWindowIdle;
+  m_windowsIdleOver5;
 }

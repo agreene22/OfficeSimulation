@@ -24,6 +24,7 @@ void Registrar::assignWindow(Student* s){
     if(windows[i].isOpen()){//changed -> to .  lets see if it works
       windows[i].setStudent(s);
     }
+    s->calculateWaitTime();
   }
   occupiedWindows++;
 }

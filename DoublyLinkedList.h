@@ -11,6 +11,7 @@ public:
   void insertBack(T* d); //There is no generic insert, only front and back, do we need a generic?
   T* removeFront();
   // T removeBack(); // Need to write this method still
+  T accessAtPos(int pos); // are we allowed to make up our own methods as long as its still generic?
   T remove(T value);
   int search(T val); //will return position of node depending where it is in the list
   T removeAtPos(int pos);
@@ -19,7 +20,7 @@ public:
   unsigned int getSize();
   bool isEmpty();
   void printList();
-  T* getFront();
+  T getFront();
 
 private:
   ListNode<T> *front;
@@ -116,6 +117,23 @@ T* DoublyLinkedList<T>::removeFront(){
   return temp;
 }
 
+template <typename T>
+T DoublyLinkedList<T>::accessAtPos(int pos){
+  ListNode<T> *curr = front;
+  int idx = 0;
+
+  while(idx != pos){
+    curr = curr->next;
+  }
+  if(curr == NULL){ // position wasn't found
+    exit(1); //?????
+    // return NULL; //can't return just NULL
+  }
+  T temp = curr->data;
+
+  return temp;
+}
+
 //need to find the value in the list before we can delete
 //this function does not take position as a parameter
 template <typename T>
@@ -207,6 +225,7 @@ T DoublyLinkedList<T>::removeAtPos(int pos){
 }
 
 template <typename T>
-T* DoublyLinkedList<T>::getFront(){
-  return this->front;
+T DoublyLinkedList<T>::getFront(){
+  T temp = front->data;
+  return temp;
 }
