@@ -45,54 +45,68 @@ void Simulation::Run(string fileName){
   cout << "Processing file." << endl;
 
   while(!inFS.eof()){
-    if(!inFS.fail()){
-      cout << lineCount << endl; // delete later
+    // if(!inFS.fail()){
+      // cout << lineCount << endl; // delete later
       if(lineCount == 0){
         inFS >> windowsOpen;
-        office->setNumWindows(windowsOpen); // giving seg fault
-        ++lineCount;
+        if(!inFS.fail()){
+          office->setNumWindows(windowsOpen);
+          ++lineCount;
+        }
       }else if(lineCount == nextClockTickLine){
-        inFS >> clockTick;
+        inFS >> clockTick; // if you run it with the bottom it runs an infinite loop stuck in peek -> getArrival so theres something wrong with reading the last line of the file
+        if(!inFS.fail()){ // if you comment out the other the other while loop it gives a seg fault around this area (bc of reading the last line of the file)
+            ++lineCount;
+        }
+
         // for(int i = 0; i < windowsOpen; ++i){
         //   cout << "here" << endl;
         //   office->checkTime(windowsOpen, clockTick);//checking if each student is done
         //   cout << "i think this is the problem" << endl;
         // }
-        ++lineCount;
+
         //here we need to check if all the students time at the window was satisfied
         //if the time wasnt satisfied we decrement the time m_timeNeeded
         //if it was satisfied we take them out of the window
       }else if (lineCount == (nextClockTickLine + 1)){
         inFS >> numStudents;
-        nextClockTickLine += numStudents + 2;
-        ++lineCount;
+        if(!inFS.fail()){
+          nextClockTickLine += numStudents + 2;
+          ++lineCount;
+        }
       }else{
         inFS >> studentTime;
-        Student* s = new Student(studentTime, clockTick);
-        queue->enqueue(s); // when I run it with the test file it enqueue's 9 times.... (number of lines in file)
-        cout << "enqueue" << endl;
-        // if(!office->isFull()){//office isnt full so we send the first student in line to a window
-        //   for(int i = 0; i < windowsOpen; ++i){
-        //     first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
-        //     office->assignWindow(first);
-        //     // delete first;
-        //   }
-        // }
-        ++lineCount;
-        delete s;
+        if(!inFS.fail()){
+          Student* s = new Student(studentTime, clockTick);
+          queue->enqueue(s);
+          cout << "enqueue" << endl;
+          cout << s->getArrival() << endl;
+          // if(!office->isFull()){//office isnt full so we send the first student in line to a window
+          //   for(int i = 0; i < windowsOpen; ++i){
+          //     first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
+          //     office->assignWindow(first);
+          //     // delete first;
+          //   }
+          // }
+          ++lineCount;
+          delete s;
+        }
+        // ++lineCount;
+
       }
-    }
+    // }
   }
+  inFS.close();
 
   // could be a while(!queue->isEmpty() && office->checkOpen()) and run all code in there
   // checkOpen could return a boolean if all windoows are open (currently have this method only incrementing idleTime)
   time = 0;
   Student* first; // declaring up here so we don't redeclare every time
   while(!queue->isEmpty() || !office->checkOpen()){//it should run if there is someone in the queue or someone at a window now
-    if(!office->isFull() && !queue->isEmpty()){
-      first = queue->peek();
+    if(!office->isFull() && !queue->isEmpty()){ //open windows and people in queue
+      first = queue->peek(); //get first student
       cout << "peek" << endl;
-      if(first->getArrival() < time){
+      if(first->getArrival() < time){ // check if first students arrival is the current time
         cout << "get arrival" << endl;
         continue;
       }else{
