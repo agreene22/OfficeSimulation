@@ -151,13 +151,13 @@ void Simulation::Run(string fileName){
   cout << "Here1" << endl;
   delete first;
   cout << "Here2" << endl;
-  delete queue;
+  // delete queue;
   cout << "Here3" << endl;
   //delete office;
   cout << "Here4" << endl;
-  delete helpedStudents;
+  // delete helpedStudents;
   cout << "Here5" << endl;
-  delete s;
+  // delete s;
   cout << "Here6" << endl;
 }
 

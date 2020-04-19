@@ -43,7 +43,7 @@ void Registrar::assignWindow(Student* s){
 
 void Registrar::checkTime(int currTick){
   for(int i = 0; i < m_numWindows; ++i){
-    if(windows[i].getStudent()->getEndTime() == currTick){
+     if(windows[i].getStudent()->getEndTime() == currTick){
       windows[i].setStudent(NULL);//removing students from the window
     }
   }
