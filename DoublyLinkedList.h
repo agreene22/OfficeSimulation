@@ -104,9 +104,9 @@ T* DoublyLinkedList<T>::removeFront(){
   ListNode<T> *tempNode = front;
 
   //error check, make sure list is not empty before attempting to remove
-  if(front->next = NULL){
+  if(front->next == NULL){
     //there is only one node in the list
-    back == NULL;
+    back = NULL;
   }
   else{
     //more than one node in the list
