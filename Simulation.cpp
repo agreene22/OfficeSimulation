@@ -17,8 +17,8 @@ Simulation::Simulation(){
 }
 
 Simulation::~Simulation(){
-  // delete queue;
-  // delete helpedStudents;
+  delete queue;
+  delete helpedStudents;
   delete office;
 }
 
