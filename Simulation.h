@@ -1,4 +1,7 @@
 #include "Registrar.h"
+#include <vector>
+
+using namespace std;
 
 // The simulation will start at time 0, and run until all student requests have been addressed,
 // meaning the queue is empty and no more students are going to arrive. (This should tell
@@ -32,4 +35,6 @@ private:
   GenQueue<Student>* queue;
   DoublyLinkedList<Student>* students;
   Registrar* office;
+  std::vector<int> m_fileInfo;
+  std::vector<Student> m_finishedStudents;
 };
