@@ -128,17 +128,22 @@ T* DoublyLinkedList<T>::accessAtPos(int pos){
   ListNode<T> *curr = front;
   int idx = 0;
 
-  while(idx != pos){
-    curr = curr->next;
-  }
-  // if(curr == NULL){ // position wasn't found
-  //   exit(1); //?????
-  //   // return NULL; //can't return just NULL
-  // }
-  T* temp = curr->data;
-  delete curr;
+  while(curr != NULL){
+    if(idx == pos){
+      T* temp = curr->data;
+      delete curr;
 
-  return temp;
+      return temp;
+    }
+    curr = curr->next;
+    idx++;
+
+  }
+
+  // T* temp = curr->data;
+  // delete curr;
+  //
+  // return temp;
 }
 
 //need to find the value in the list before we can delete
@@ -152,7 +157,7 @@ T DoublyLinkedList<T>::remove(T value){
     curr = curr->next;
 
     if(curr == NULL){
-      return -1;
+      return NULL;
     }
   }
 

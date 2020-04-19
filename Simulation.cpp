@@ -147,18 +147,7 @@ void Simulation::Run(string fileName){
     time++;
   }
 
-
-  cout << "Here1" << endl;
   delete first;
-  cout << "Here2" << endl;
-  // delete queue;
-  cout << "Here3" << endl;
-  //delete office;
-  cout << "Here4" << endl;
-  // delete helpedStudents;
-  cout << "Here5" << endl;
-  // delete s;
-  cout << "Here6" << endl;
 }
 
 void Simulation::Calculate(){
@@ -166,32 +155,41 @@ void Simulation::Calculate(){
   float waitTime = 0.0;
   int size = 0;
 
+
   size = helpedStudents->getSize();
+  cout << "Size:" << size << endl;
 
   Student* s;
   for(int i = 0; i < size; ++i){
+    cout << "check1" << endl;
     s = helpedStudents->accessAtPos(i);
-    waitTime = s->getWaitTime();
+    cout << "check2" << endl;
+    //waitTime = s->getWaitTime();
+    cout << "check3" << endl;
     totalStudentWait += waitTime;
-    if(waitTime > m_longestStudentWait){
-      m_longestStudentWait = waitTime;
-    }
-    if(i == (size/2)){
-      m_medianStudentWait = waitTime;
-    }
-    if(waitTime > 10){
-      m_studentsOverTen++;
-    }
-
+    //if(waitTime > m_longestStudentWait){
+      //m_longestStudentWait = waitTime;
+    //}
+    //if(i == (size/2)){
+    //  m_medianStudentWait = waitTime; //median somewhere else
+    //}
+  //  if(waitTime > 10){
+    //  m_studentsOverTen++;
+  //  }
 
   }
+
+  cout << "check4" << endl;
   delete s;
+  cout << "check5" << endl;
   m_meanStudentWait = (totalStudentWait/size);
 
   float totalWindowIdle = 0.0;
   float idle = 0.0;
+  cout << "check6" << endl;
   for(int i = 0; i < office->getSize(); ++i){
     idle = office->getWindow(i).getIdleTime();
+    cout << "check7" << endl;
     totalWindowIdle += idle;
     if(idle > m_longestWindowIdle){
       m_longestWindowIdle = idle;
