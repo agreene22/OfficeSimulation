@@ -97,12 +97,16 @@ void DoublyLinkedList<T>::insertBack(T* d){
 
 template <typename T>
 T* DoublyLinkedList<T>::removeFront(){
+  if(isEmpty()){
+    cout << "Trying to remove from an empty list" << endl;
+    exit(1);
+  }
   ListNode<T> *tempNode = front;
 
   //error check, make sure list is not empty before attempting to remove
   if(front->next = NULL){
     //there is only one node in the list
-    back = NULL;
+    back == NULL;
   }
   else{
     //more than one node in the list

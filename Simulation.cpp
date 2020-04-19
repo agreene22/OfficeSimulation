@@ -100,6 +100,7 @@ void Simulation::Run(string fileName){
         first = queue->dequeue();
         cout << "dequeue" << endl;
         office->assignWindow(first);
+        cout << "Assign" << endl;
         students->insertBack(first); //Linked List of students after being helped
       }
     }
