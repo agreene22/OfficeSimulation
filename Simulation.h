@@ -33,8 +33,6 @@ private:
   float m_longestWindowIdle;
   float m_windowsIdleOver5;
   GenQueue<Student>* queue;
-  DoublyLinkedList<Student>* students;
+  DoublyLinkedList<Student>* helpedStudents;
   Registrar* office;
-  std::vector<int> m_fileInfo;
-  std::vector<Student> m_finishedStudents;
 };

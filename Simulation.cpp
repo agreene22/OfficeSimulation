@@ -12,14 +12,14 @@ Simulation::Simulation(){
   m_longestWindowIdle = 0.0;
   m_windowsIdleOver5 = 0.0;
   queue = new GenQueue<Student>(10); // we need to be able to make this the correct size
-  students = new DoublyLinkedList<Student>();
+  helpedStudents = new DoublyLinkedList<Student>();
   office = new Registrar();
 }
 
 Simulation::~Simulation(){
   // delete queue;
-  // delete students;
-  // delete office;
+  // delete helpedStudents;
+  delete office;
 }
 
 void Simulation::Run(string fileName){
@@ -48,18 +48,6 @@ void Simulation::Run(string fileName){
   }
   cout << "Processing file." << endl;
 
-  // while(!inFS.eof()){
-  //   string info = "";
-  //   inFS >> info;
-  //   if(!inFS.fail()){
-  //     cout << info << endl;
-  //     m_fileInfo.push_back(stoi(info));
-  //   }
-  // }
-  //
-  // for(int i = 0; m_fileInfo.size(); ++i){
-  //   cout << m_fileInfo[i] << endl;
-  // }
 
   while(!inFS.eof()){
     // if(!inFS.fail()){
@@ -139,7 +127,7 @@ void Simulation::Run(string fileName){
         cout << "dequeue" << endl;
         office->assignWindow(first);
         cout << "Assign" << endl;
-        students->insertBack(first); //Linked List of students after being helped
+        helpedStudents->insertBack(first); //Linked List of students after being helped
       }
     }
     if(!office->isFull() && queue->isEmpty()){
@@ -159,11 +147,18 @@ void Simulation::Run(string fileName){
     time++;
   }
 
+
+  cout << "Here1" << endl;
   delete first;
+  cout << "Here2" << endl;
   delete queue;
-  delete office;
-  delete students;
+  cout << "Here3" << endl;
+  //delete office;
+  cout << "Here4" << endl;
+  delete helpedStudents;
+  cout << "Here5" << endl;
   delete s;
+  cout << "Here6" << endl;
 }
 
 void Simulation::Calculate(){
@@ -171,11 +166,11 @@ void Simulation::Calculate(){
   float waitTime = 0.0;
   int size = 0;
 
-  size = students->getSize();
+  size = helpedStudents->getSize();
 
   Student* s;
   for(int i = 0; i < size; ++i){
-    s = students->accessAtPos(i);
+    s = helpedStudents->accessAtPos(i);
     waitTime = s->getWaitTime();
     totalStudentWait += waitTime;
     if(waitTime > m_longestStudentWait){
