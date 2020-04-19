@@ -173,8 +173,9 @@ void Simulation::Calculate(){
 
   size = students->getSize();
 
+  Student* s;
   for(int i = 0; i < size; ++i){
-    Student* s = students->accessAtPos(i);
+    s = students->accessAtPos(i);
     waitTime = s->getWaitTime();
     totalStudentWait += waitTime;
     if(waitTime > m_longestStudentWait){
@@ -187,8 +188,9 @@ void Simulation::Calculate(){
       m_studentsOverTen++;
     }
 
-    delete s;
+
   }
+  delete s;
   m_meanStudentWait = (totalStudentWait/size);
 
   float totalWindowIdle = 0.0;
