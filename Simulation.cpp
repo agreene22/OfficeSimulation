@@ -1,3 +1,8 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 4 - Registrar Office Simulation
+ */
+
 #include "Simulation.h"
 #include <fstream>
 #include <algorithm>
@@ -153,15 +158,6 @@ void Simulation::Run(string fileName){
       time++;
     }
 
-
-    //else{ // this else might not be necessary anymore because I created a getWaitTime method
-     // for(int i = 0; i < queue->getSize(); ++i){
-     //    student->incrementIdleTime(time);
-     //    ^^for each student in the queue call incrementIdleTime
-     //    need to be able to access each element of the queue
-     // }
-   //}
-
   }
 
   //delete first;
@@ -181,7 +177,18 @@ void Simulation::Calculate(){
   int n = sizeof(medArray)/sizeof(medArray[0]);
 
   sort(medArray, medArray+n);
-  
+  for(int i = 0; i < size; ++i){
+    cout << medArray[i] << endl;
+    if(size%2 == 0){
+      if(i == ((size+1)/2)){
+        m_medianStudentWait = (((float)medArray[i] + (float)medArray[i-1])/2);
+      }
+    }else{
+      if(i == (size/2)){
+       m_medianStudentWait = medArray[i];
+      }
+    }
+  }
 
 
   for(int i = 0; i < size; ++i){
@@ -193,9 +200,9 @@ void Simulation::Calculate(){
     if(waitTime > m_longestStudentWait){
       m_longestStudentWait = waitTime;
     }
-    if(i == (size/2)){
-     m_medianStudentWait = waitTime; //median somewhere else
-    }
+    // if(i == (size/2)){
+    //  m_medianStudentWait = waitTime; //median somewhere else
+    // }
    if(waitTime > 10){
      m_studentsOverTen++;
    }

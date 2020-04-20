@@ -1,3 +1,8 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 4 - Registrar Office Simulation
+ */
+
 #include <iostream>
 #include "DoublyLinkedList.h"
 using namespace std;
@@ -58,7 +63,6 @@ void GenQueue<T>::enqueue(T* d){
     return;
   }else{
     myQueue->insertBack(d);
-    // rear = (rear+1)&mSize;
     ++rear;
     ++numElements;
   }
@@ -72,9 +76,7 @@ T* GenQueue<T>::dequeue(){
     exit(1);
   }else{
     T* c = myQueue->removeFront();
-    //This^ does not work because front is private in the LinkedList are we allowed to make it public or should we write a method getFront
-    ++front; //does this do anything?
-    // front = (front+1)%mSize //for circular queue
+    ++front;
     --numElements;
     return c;
   }
@@ -83,13 +85,11 @@ T* GenQueue<T>::dequeue(){
 template <typename T>
 T* GenQueue<T>::peek(){
   return myQueue->getFront();
-  //This^ does not work because front is private in the LinkedList are we allowed to make it public or should we write a method getFront
 }
 
 template <typename T>
 bool GenQueue<T>::isFull(){
   return (numElements == mSize);
-  // return ((rear+1)%mSize == front);
 }
 
 template <typename T>

@@ -1,3 +1,8 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 4 - Registrar Office Simulation
+ */
+
 #include <iostream>
 #include "Student.h"
 

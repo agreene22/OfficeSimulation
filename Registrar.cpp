@@ -1,3 +1,8 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 4 - Registrar Office Simulation
+ */
+
 #include "Registrar.h"
 
 Registrar::Registrar(){
@@ -7,9 +12,6 @@ Registrar::Registrar(){
 void Registrar::setNumWindows(int num){
   m_numWindows = num;
   windows = new Window[num];
-  for(int i = 0; i < num; ++i){//do we even have to do this? its already an array of windows
-    //windows[i] = new Window();
-  }
 }
 
 int Registrar::getSize(){
@@ -17,15 +19,12 @@ int Registrar::getSize(){
 }
 
 Registrar::~Registrar(){
-  //for(int i = 0; i < m_numWindows; ++i){
-    //delete windows[i];
-  //}
   delete[] windows;
 }
 
 void Registrar::assignWindow(Student* s){
-  for(int i = 0; i < m_numWindows; ++i){//what was before wont work because the first few windows arent necessarily the ones that are open
-    if(windows[i].isOpen()){//changed -> to .  lets see if it works
+  for(int i = 0; i < m_numWindows; ++i){
+    if(windows[i].isOpen()){
       windows[i].setStudent(s);
       s->calculateWaitTime();
       break;
