@@ -51,7 +51,8 @@ void Registrar::checkTime(int currTick){
         cout << "Opening a window" << endl;
         windows[i].open();//removing students from the window
       }else if(windows[i].getStudent()->getEndTime() > currTick){
-        cout << "Windows are not being cleared properly" << endl;
+        cout << "End time: " << windows[i].getStudent()->getEndTime() << endl;
+        cout << "Current Time: " << currTick << endl;
       }else if (windows[i].getStudent()->getEndTime() < currTick){
         cout << "What the heck" << endl;
         cout << "End time: " << windows[i].getStudent()->getEndTime() << endl;
