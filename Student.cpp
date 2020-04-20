@@ -37,6 +37,6 @@ void Student::calculateWaitTime(){
   m_timeIdle = m_arrivalTime - m_windowStartTime;
 }
 
-float Student::getWaitTime(){
+int Student::getWaitTime(){
   return m_timeIdle;
 }

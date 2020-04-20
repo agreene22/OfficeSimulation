@@ -12,7 +12,7 @@ public:
   void incrementIdleTime(int currTick);
   int getArrival();
   void calculateWaitTime();
-  float getWaitTime();
+  int getWaitTime();
 
 private:
   int m_timeNeeded;

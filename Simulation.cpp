@@ -152,19 +152,30 @@ void Simulation::Run(string fileName){
 
 void Simulation::Calculate(){
   float totalStudentWait = 0.0;
-  float waitTime = 0.0;
+  int waitTime = 0;
   int size = 0;
 
 
   size = helpedStudents->getSize();
   cout << "Size:" << size << endl;
 
+  for(int i = 0; i < size; ++i){
+    cout << "Here" << endl;
+    Student* stud = helpedStudents->accessAtPos(i);
+    cout << "Here2" << endl;
+    if(stud == NULL){
+      cout << "Null" << endl;
+    }
+    cout << stud->getEndTime() << endl;
+    delete stud;
+  }
+
   Student* s;
   for(int i = 0; i < size; ++i){
     cout << "check1" << endl;
     s = helpedStudents->accessAtPos(i);
     cout << "check2" << endl;
-    //waitTime = s->getWaitTime();
+    waitTime = s->getWaitTime();
     cout << "check3" << endl;
     totalStudentWait += waitTime;
     //if(waitTime > m_longestStudentWait){
@@ -176,20 +187,20 @@ void Simulation::Calculate(){
   //  if(waitTime > 10){
     //  m_studentsOverTen++;
   //  }
-
+    delete s;
   }
 
   cout << "check4" << endl;
-  delete s;
+  //delete s;
   cout << "check5" << endl;
   m_meanStudentWait = (totalStudentWait/size);
 
   float totalWindowIdle = 0.0;
   float idle = 0.0;
-  cout << "check6" << endl;
+  //cout << "check6" << endl;
   for(int i = 0; i < office->getSize(); ++i){
     idle = office->getWindow(i).getIdleTime();
-    cout << "check7" << endl;
+    //cout << "check7" << endl;
     totalWindowIdle += idle;
     if(idle > m_longestWindowIdle){
       m_longestWindowIdle = idle;
