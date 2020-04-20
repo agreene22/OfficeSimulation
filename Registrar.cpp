@@ -48,15 +48,8 @@ void Registrar::checkTime(int currTick){
       continue;
     }else{
       if(windows[i].getStudent()->getEndTime() == currTick){
-        cout << "Opening a window" << endl;
+        //cout << "Opening a window" << endl;
         windows[i].open();//removing students from the window
-      }else if(windows[i].getStudent()->getEndTime() > currTick){
-        cout << "End time: " << windows[i].getStudent()->getEndTime() << endl;
-        cout << "Current Time: " << currTick << endl;
-      }else if (windows[i].getStudent()->getEndTime() < currTick){
-        cout << "What the heck" << endl;
-        cout << "End time: " << windows[i].getStudent()->getEndTime() << endl;
-        cout << "Current Time: " << currTick << endl;
       }
     }
   }

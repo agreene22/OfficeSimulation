@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -119,25 +120,28 @@ void Simulation::Run(string fileName){
   while(!queue->isEmpty() || !office->checkOpen()){//it should run if there is someone in the queue or someone at a window now
     if(!office->isFull() && !queue->isEmpty()){ //open windows and people in queue
       first = queue->peek(); //get first student
-      cout << "peek" << endl;
+      //cout << "peek" << endl;
       if(first->getArrival() <= time){ // check if first students arrival is the current time
         first = queue->dequeue();
         first->setWindowTime(time);//setting the time at which the student got to the window
         office->assignWindow(first);
         helpedStudents->insertBack(first);
-        cout << "Assigned to window" << endl;
+        //cout << "Assigned to window" << endl;
       }else if (first->getArrival() > time){//not time for the student to be dequeued yet
-        cout << "Student in front of line hasnt arrived yet" << endl;
+        //cout << "Student in front of line hasnt arrived yet" << endl;
         office->incrementWindows();
         office->checkTime(time);
         time++;
 
-      }else if(first->getArrival() < time){//this shouldnt happen
+      }else if(first->getArrival() < time){//this shouldnt happen, if we enter here i think theres a problem
        cout << "How did this happen?" << endl;
+       //student at the front of the line is still waiting because the office is full
+       //office->checkTime(time);
+       //time++
       }
     }
     if(!office->isFull() && queue->isEmpty()){//students in windows(there are still empty windows) but the queue is empty
-      cout << "We made it" << endl;
+      //cout << "We made it" << endl;
       office->incrementWindows();
       office->checkTime(time);
       time++;
@@ -170,14 +174,21 @@ void Simulation::Calculate(){
 
 
   size = helpedStudents->getSize();
-  cout << "Size:" << size << endl;
+  int medArray[size];
+  for(int i = 0; i < size; ++i){
+    medArray[i] = helpedStudents->accessAtPos(i)->getWaitTime();
+  }
+  int n = sizeof(medArray)/sizeof(medArray[0]);
+
+  sort(medArray, medArray+n);
+  
 
 
   for(int i = 0; i < size; ++i){
-    cout << "check1" << endl;
+    //cout << "check1" << endl;
     Student* s = helpedStudents->accessAtPos(i);
     waitTime = s->getWaitTime();
-    cout << "check2" << endl;
+    //cout << "check2" << endl;
     totalStudentWait += waitTime;
     if(waitTime > m_longestStudentWait){
       m_longestStudentWait = waitTime;
@@ -191,7 +202,7 @@ void Simulation::Calculate(){
    delete s;
   }
 
-  cout << "check4" << endl;
+  //cout << "check4" << endl;
   m_meanStudentWait = (totalStudentWait/size);
 
   float totalWindowIdle = 0.0;
