@@ -115,7 +115,7 @@ void Simulation::Run(string fileName){
 
 
 
-  time = 0;
+  time = 1;
   Student* first; // declaring up here so we don't redeclare every time
   while(!queue->isEmpty() || !office->checkOpen()){//it should run if there is someone in the queue or someone at a window now
     if(!office->isFull() && !queue->isEmpty()){ //open windows and people in queue
