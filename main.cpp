@@ -15,7 +15,6 @@ int main(int argc, char **argv){
 
     Simulation* sim = new Simulation();
     sim->Run(fileName);
-    cout << "here" << endl;
     sim->Calculate();
 
     delete sim;
