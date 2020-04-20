@@ -16,7 +16,7 @@ public:
   void insertBack(T* d); //There is no generic insert, only front and back, do we need a generic?
   T* removeFront();
   // T removeBack(); // Need to write this method still
-  T* accessAtPos(int pos); // are we allowed to make up our own methods as long as its still generic?
+  T* accessAtPos(int pos);
   T remove(T value);
   int search(T val); //will return position of node depending where it is in the list
   T removeAtPos(int pos);
@@ -94,7 +94,6 @@ void DoublyLinkedList<T>::insertBack(T* d){
     //not isEmpty
     back->next = node;
     node->prev = back;
-    node->prev->next = node; //added
   }
   back = node;
   size++;
@@ -115,7 +114,7 @@ T* DoublyLinkedList<T>::removeFront(){
   }
   else{
     //more than one node in the list
-    front->next->prev = NULL; // this is the line with the segmentation fault
+    front->next->prev = NULL;
   }
 
   front = front->next;

@@ -100,5 +100,4 @@ Window Registrar::getWindow(int pos){
       return windows[i];
     }
   }
-  // return NULL; // cannot return NULL
 }

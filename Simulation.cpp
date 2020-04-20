@@ -1,6 +1,7 @@
 /* Anna Greene - 2314663
   Brandon Kleinman - 2291703
   Assignment 4 - Registrar Office Simulation
+  Simulation class which defines methods and implements the queue and registrar class to simulate the office
  */
 
 #include "Simulation.h"
@@ -11,13 +12,13 @@ using namespace std;
 
 Simulation::Simulation(){
   m_meanStudentWait = 0.0;
-  m_medianStudentWait = 0.0; // store waits in an array and find median?
+  m_medianStudentWait = 0.0;
   m_longestStudentWait = 0.0;
   m_studentsOverTen = 0.0;
   m_meanWindowIdle = 0.0;
   m_longestWindowIdle = 0.0;
   m_windowsIdleOver5 = 0.0;
-  queue = new GenQueue<Student>(10); // we need to be able to make this the correct size
+  queue = new GenQueue<Student>(10);
   helpedStudents = new DoublyLinkedList<Student>();
   office = new Registrar();
 }
@@ -29,10 +30,6 @@ Simulation::~Simulation(){
 }
 
 void Simulation::Run(string fileName){
-  // GenQueue<Student>* queue = new GenQueue<Student>(10);
-
-  // Registrar* office = new Registrar();
-  // Student* first;
   ifstream inFS;
 
   int clockTick = 0;
@@ -43,7 +40,7 @@ void Simulation::Run(string fileName){
   int time = 0;
   int numStudents = 0;
   float studentTime = 0.0;
-  // float windowsOccupied = 0.0;
+
   Student* s;
 
   inFS.open(fileName);
@@ -56,67 +53,36 @@ void Simulation::Run(string fileName){
 
 
   while(!inFS.eof()){
-    // if(!inFS.fail()){
-      // cout << lineCount << endl; // delete later
-      if(lineCount == 0){
-        inFS >> windowsOpen;
-        if(!inFS.fail()){
-          office->setNumWindows(windowsOpen);
+    if(lineCount == 0){
+      inFS >> windowsOpen;
+      if(!inFS.fail()){
+        office->setNumWindows(windowsOpen);
+        ++lineCount;
+      }
+    }else if(lineCount == nextClockTickLine){
+      inFS >> clockTick;
+      if(!inFS.fail()){
           ++lineCount;
-        }
-      }else if(lineCount == nextClockTickLine){
-        inFS >> clockTick; // if you run it with the bottom it runs an infinite loop stuck in peek -> getArrival so theres something wrong with reading the last line of the file
-        if(!inFS.fail()){ // if you comment out the other the other while loop it gives a seg fault around this area (bc of reading the last line of the file)
-            ++lineCount;
-        }
-
-        // for(int i = 0; i < windowsOpen; ++i){
-        //   cout << "here" << endl;
-        //   office->checkTime(windowsOpen, clockTick);//checking if each student is done
-        //   cout << "i think this is the problem" << endl;
-        // }
-
-        //here we need to check if all the students time at the window was satisfied
-        //if the time wasnt satisfied we decrement the time m_timeNeeded
-        //if it was satisfied we take them out of the window
-      }else if (lineCount == (nextClockTickLine + 1)){
-        inFS >> numStudents;
-        if(!inFS.fail()){
-          nextClockTickLine += numStudents + 2;
-          ++lineCount;
-        }
-      }else{
-        inFS >> studentTime;
-        if(!inFS.fail()){
-          s = new Student(studentTime, clockTick);
-          queue->enqueue(s);
-          cout << "Enqueue at time: " << s->getArrival() << endl;
-          // if(!office->isFull()){//office isnt full so we send the first student in line to a window
-          //   for(int i = 0; i < windowsOpen; ++i){
-          //     first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
-          //     office->assignWindow(first);
-          //     // delete first;
-          //   }
-          // }
-          ++lineCount;
-
-        }
-        // ++lineCount;
+      }
+    }else if (lineCount == (nextClockTickLine + 1)){
+      inFS >> numStudents;
+      if(!inFS.fail()){
+        nextClockTickLine += numStudents + 2;
+        ++lineCount;
+      }
+    }else{
+      inFS >> studentTime;
+      if(!inFS.fail()){
+        s = new Student(studentTime, clockTick);
+        queue->enqueue(s);
+        cout << "Enqueue at time: " << s->getArrival() << endl;
+        ++lineCount;
 
       }
-    // }
+
+    }
   }
   inFS.close();
-
-  // could be a while(!queue->isEmpty() && office->checkOpen()) and run all code in there
-  // checkOpen could return a boolean if all windoows are open (currently have this method only incrementing idleTime)
-
-  // Student* first;
-  // while(!queue->isEmpty()){
-  //   first = queue->dequeue();
-  //   cout << first->getArrival() << endl;
-  // }
-
 
 
   time = 1;
@@ -160,7 +126,6 @@ void Simulation::Run(string fileName){
 
   }
 
-  //delete first;
 }
 
 void Simulation::Calculate(){
@@ -200,13 +165,10 @@ void Simulation::Calculate(){
     if(waitTime > m_longestStudentWait){
       m_longestStudentWait = waitTime;
     }
-    // if(i == (size/2)){
-    //  m_medianStudentWait = waitTime; //median somewhere else
-    // }
-   if(waitTime > 10){
-     m_studentsOverTen++;
-   }
-   delete s;
+    if(waitTime > 10){
+      m_studentsOverTen++;
+    }
+    delete s;
   }
 
   //cout << "check4" << endl;
