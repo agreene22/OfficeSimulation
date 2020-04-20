@@ -120,27 +120,31 @@ void Simulation::Run(string fileName){
     if(!office->isFull() && !queue->isEmpty()){ //open windows and people in queue
       first = queue->peek(); //get first student
       cout << "peek" << endl;
-      if(first->getArrival() == time){ // check if first students arrival is the current time
+      if(first->getArrival() <= time){ // check if first students arrival is the current time
         first = queue->dequeue();
         first->setWindowTime(time);//setting the time at which the student got to the window
-        first->calculateWaitTime();//calculating idle time
         office->assignWindow(first);
         helpedStudents->insertBack(first);
         cout << "Assigned to window" << endl;
       }else if (first->getArrival() > time){//not time for the student to be dequeued yet
         cout << "Student in front of line hasnt arrived yet" << endl;
         office->incrementWindows();
+        office->checkTime(time);
         time++;
 
       }else if(first->getArrival() < time){//this shouldnt happen
        cout << "How did this happen?" << endl;
       }
-    }else{
-      time++;
     }
     if(!office->isFull() && queue->isEmpty()){//students in windows(there are still empty windows) but the queue is empty
       cout << "We made it" << endl;
       office->incrementWindows();
+      office->checkTime(time);
+      time++;
+    }else if(office->isFull() && queue->isEmpty()){//office is full no students waiting
+      office->checkTime(time);
+      time++;
+    }else if(office->isFull() && !queue->isEmpty()){//office is full students are waiting
       office->checkTime(time);
       time++;
     }
