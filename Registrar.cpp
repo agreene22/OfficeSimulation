@@ -44,7 +44,7 @@ void Registrar::assignWindow(Student* s){
 void Registrar::checkTime(int currTick){
   for(int i = 0; i < m_numWindows; ++i){
      if(windows[i].getStudent()->getEndTime() == currTick){
-      windows[i].setStudent(0);//removing students from the window
+      windows[i].setStudent(NULL);//removing students from the window
     }
   }
 }
@@ -52,7 +52,7 @@ void Registrar::checkTime(int currTick){
 bool Registrar::checkOpen(){
   for(int i = 0; i < m_numWindows; ++i){
     if(windows[i].isOpen()){
-      windows[i].incrementIdleTime();
+      continue;
     }else{
       return false; // if any window is occupied it will return false
     }
@@ -60,12 +60,25 @@ bool Registrar::checkOpen(){
   return true;
 }
 
+void Registrar::incrementWindows(){
+  for(int i = 0; i < m_numWindows; ++i){
+    if(windows[i].isOpen()){
+      windows[i].incrementIdleTime();
+    }
+  }
+}
+
 bool Registrar::isEmpty(){
   return (occupiedWindows == 0);
 }
 
 bool Registrar::isFull(){
-  return (occupiedWindows == m_numWindows);
+  for(int i = 0; i < m_numWindows; ++i){
+    if(windows[i].isOpen()){
+      return false;
+    }
+  }
+  return true;
 }
 
 // float Registrar::calculateWindowIdleTime(){

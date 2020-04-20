@@ -14,6 +14,10 @@ Student::Student(int windowTime, int arrival){
   m_windowStartTime = 0;
 }
 
+void Student::setWindowTime(int startTime){
+  m_windowStartTime = startTime;
+}
+
 
 int Student::getEndTime(){
   return(m_windowStartTime + m_timeNeeded);

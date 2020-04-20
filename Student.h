@@ -13,6 +13,7 @@ public:
   int getArrival();
   void calculateWaitTime();
   int getWaitTime();
+  void setWindowTime(int startTime);
 
 private:
   int m_timeNeeded;

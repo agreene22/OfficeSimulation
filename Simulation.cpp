@@ -84,8 +84,7 @@ void Simulation::Run(string fileName){
         if(!inFS.fail()){
           s = new Student(studentTime, clockTick);
           queue->enqueue(s);
-          cout << "enqueue" << endl;
-          cout << s->getArrival() << endl;
+          cout << "Enqueue at time: " << s->getArrival() << endl;
           // if(!office->isFull()){//office isnt full so we send the first student in line to a window
           //   for(int i = 0; i < windowsOpen; ++i){
           //     first = queue->dequeue(); // what if we move this part to a separate loop so first we queue all the students then start removing them
@@ -114,43 +113,45 @@ void Simulation::Run(string fileName){
 
 
 
-
   time = 1;
-  Student* first; // declaring up here so we don't redeclare every time
+  Student* first; //= queue->dequeue(); // declaring up here so we don't redeclare every time
+  //cout << "First Arrival" << first->getArrival() << endl;
   while(!queue->isEmpty() || !office->checkOpen()){//it should run if there is someone in the queue or someone at a window now
     if(!office->isFull() && !queue->isEmpty()){ //open windows and people in queue
       first = queue->peek(); //get first student
       cout << "peek" << endl;
-      if(first->getArrival() < time){ // check if first students arrival is the current time
-        cout << "get arrival" << endl;
-        continue;
-      }else{
-        cout << "to dequeue" << endl;
+      if(first->getArrival() == time){ // check if first students arrival is the current time
         first = queue->dequeue();
-        cout << "dequeue" << endl;
+        first->setWindowTime(time);//setting the time at which the student got to the window
+        first->calculateWaitTime();//calculating idle time
         office->assignWindow(first);
-        cout << "Assign" << endl;
-        helpedStudents->insertBack(first); //Linked List of students after being helped
+        helpedStudents->insertBack(first);
+        cout << "Assigned to window" << endl;
+      }else if (first->getArrival() > time){//not time for the student to be dequeued yet
+        office->incrementWindows();
+        time++;
+      }else if(first->getArrival() < time){//this shouldnt happen
+       cout << "How did this happen?" << endl;
       }
     }
-    if(!office->isFull() && queue->isEmpty()){
-      cout << "at window but queue empty" << endl;
-      office->checkOpen(); // increments idle time for open windows without a student
+    if(!office->isFull() && queue->isEmpty()){//students in windows but the queue is empty
+      office->incrementWindows();
       office->checkTime(time);
+      time++;
     }
 
 
-    else{ // this else might not be necessary anymore because I created a getWaitTime method
-      for(int i = 0; i < queue->getSize(); ++i){
-        // student->incrementIdleTime(time);
-        // ^^for each student in the queue call incrementIdleTime
-        // need to be able to access each element of the queue
-      }
-    }
-    time++;
+    //else{ // this else might not be necessary anymore because I created a getWaitTime method
+     // for(int i = 0; i < queue->getSize(); ++i){
+     //    student->incrementIdleTime(time);
+     //    ^^for each student in the queue call incrementIdleTime
+     //    need to be able to access each element of the queue
+     // }
+   //}
+
   }
 
-  delete first;
+  //delete first;
 }
 
 void Simulation::Calculate(){

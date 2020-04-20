@@ -17,6 +17,7 @@ class Registrar{
     bool isEmpty();
     bool isFull();
     Window getWindow(int);
+    void incrementWindows();
 
     Window* windows;
 
