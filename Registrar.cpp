@@ -27,8 +27,9 @@ void Registrar::assignWindow(Student* s){
   for(int i = 0; i < m_numWindows; ++i){//what was before wont work because the first few windows arent necessarily the ones that are open
     if(windows[i].isOpen()){//changed -> to .  lets see if it works
       windows[i].setStudent(s);
+      s->calculateWaitTime();
+      break;
     }
-    s->calculateWaitTime();
   }
   occupiedWindows++;
 }
@@ -43,8 +44,13 @@ void Registrar::assignWindow(Student* s){
 
 void Registrar::checkTime(int currTick){
   for(int i = 0; i < m_numWindows; ++i){
-     if(windows[i].getStudent()->getEndTime() == currTick){
-      windows[i].setStudent(NULL);//removing students from the window
+    if(windows[i].isOpen()){
+      continue;
+    }else{
+      if(windows[i].getStudent()->getEndTime() == currTick){
+        cout << "Opening a window" << endl;
+        windows[i].open();//removing students from the window
+      }
     }
   }
 }

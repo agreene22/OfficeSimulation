@@ -128,13 +128,18 @@ void Simulation::Run(string fileName){
         helpedStudents->insertBack(first);
         cout << "Assigned to window" << endl;
       }else if (first->getArrival() > time){//not time for the student to be dequeued yet
+        cout << "Student in front of line hasnt arrived yet" << endl;
         office->incrementWindows();
         time++;
+
       }else if(first->getArrival() < time){//this shouldnt happen
        cout << "How did this happen?" << endl;
       }
+    }else{
+      time++;
     }
-    if(!office->isFull() && queue->isEmpty()){//students in windows but the queue is empty
+    if(!office->isFull() && queue->isEmpty()){//students in windows(there are still empty windows) but the queue is empty
+      cout << "We made it" << endl;
       office->incrementWindows();
       office->checkTime(time);
       time++;

@@ -9,6 +9,22 @@ int main(int argc, char **argv){
   //GenQueue<int> *queue = new GenQueue<int>();
   //queue->insert(4);
   //cout << queue->peak() << endl;
+
+  // Student* s = new Student(3, 4);
+  // Window* winds = new Window[3];
+  // winds[2].setStudent(s);
+  // for(int i = 0; i < 3; ++i){
+  //   if(winds[i].isOpen()){
+  //     cout << "Window: " << i << " is open" << endl;
+  //   }
+  // }
+  // winds[2].open();
+  // for(int i = 0; i < 3; ++i){
+  //   if(winds[i].isOpen()){
+  //     cout << "Window: " << i << " is open" << endl;
+  //   }
+  // }
+
   Simulation* sim;
   if(argc > 1){
     fileName = argv[1];
@@ -22,6 +38,8 @@ int main(int argc, char **argv){
    cout << "INVALID USAGE: please enter name of a text file" << endl;
    cout << "USAGE: ./a.out [file name]" << endl;
   }
+
+
 
   // Student* p1 = new Student();
   // Student* p2 = new Student();
@@ -43,6 +61,6 @@ int main(int argc, char **argv){
   //   delete p;
   // }
 
-  delete sim;
+  //delete sim;
   return 0;
 }
