@@ -20,7 +20,7 @@ Registrar::~Registrar(){
   //for(int i = 0; i < m_numWindows; ++i){
     //delete windows[i];
   //}
-  delete windows;
+  delete[] windows;
 }
 
 void Registrar::assignWindow(Student* s){
@@ -44,7 +44,7 @@ void Registrar::assignWindow(Student* s){
 void Registrar::checkTime(int currTick){
   for(int i = 0; i < m_numWindows; ++i){
      if(windows[i].getStudent()->getEndTime() == currTick){
-      windows[i].setStudent(NULL);//removing students from the window
+      windows[i].setStudent(0);//removing students from the window
     }
   }
 }

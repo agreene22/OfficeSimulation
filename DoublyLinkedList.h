@@ -131,7 +131,6 @@ T* DoublyLinkedList<T>::accessAtPos(int pos){
   while(curr != NULL){
     if(idx == pos){
       T* temp = curr->data;
-      delete curr;
 
       return temp;
     }

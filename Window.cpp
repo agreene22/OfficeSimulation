@@ -18,7 +18,7 @@ bool Window::isOpen(){
   return (m_currStudent == NULL);
 }
 
-void Window::setStudent(Student* s){
+void Window::setStudent(Student* s){//does this make sense?
   m_currStudent = s;
 }
 

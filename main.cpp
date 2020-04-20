@@ -9,21 +9,40 @@ int main(int argc, char **argv){
   //GenQueue<int> *queue = new GenQueue<int>();
   //queue->insert(4);
   //cout << queue->peak() << endl;
-
+  Simulation* sim;
   if(argc > 1){
     fileName = argv[1];
 
-    Simulation* sim = new Simulation();
+    sim = new Simulation();
     sim->Run(fileName);
-    cout << "here" << endl;
     sim->Calculate();
 
-    delete sim;
+
   }else{
-    cout << "INVALID USAGE: please enter name of a text file" << endl;
-    cout << "USAGE: ./a.out [file name]" << endl;
+   cout << "INVALID USAGE: please enter name of a text file" << endl;
+   cout << "USAGE: ./a.out [file name]" << endl;
   }
 
+  // Student* p1 = new Student();
+  // Student* p2 = new Student();
+  // Student* p3 = new Student();
+  // Student* p4 = new Student();
+  //
+  // DoublyLinkedList<Student>* dll = new DoublyLinkedList<Student>();
+  //
+  // dll->insertBack(p1);
+  // dll->insertBack(p2);
+  // dll->insertBack(p3);
+  // dll->insertBack(p4);
+  //
+  // cout << dll->getSize() << endl;
+  //
+  // for(int i = 0; i < 4; ++i){
+  //   Student* p = dll->accessAtPos(i);
+  //   cout << p->getWaitTime() << endl;
+  //   delete p;
+  // }
 
+  delete sim;
   return 0;
 }
