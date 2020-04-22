@@ -18,7 +18,7 @@ Simulation::Simulation(){
   m_meanWindowIdle = 0.0;
   m_longestWindowIdle = 0.0;
   m_windowsIdleOver5 = 0.0;
-  queue = new GenQueue<Student>(10);
+  queue = new GenQueue<Student>();
   helpedStudents = new DoublyLinkedList<Student>();
   office = new Registrar();
 }

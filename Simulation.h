@@ -25,7 +25,7 @@ private:
   float m_meanWindowIdle;
   float m_longestWindowIdle;
   float m_windowsIdleOver5;
-  GenQueue<Student>* queue;
+  List<Student>* queue;
   DoublyLinkedList<Student>* helpedStudents;
   Registrar* office;
 };

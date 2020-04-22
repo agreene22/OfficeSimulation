@@ -2,13 +2,16 @@
   Brandon Kleinman - 2291703
   Assignment 4 - Registrar Office Simulation
  */
+#ifndef GENQUEUE_H
+#define GENQUEUE_H
 
 #include <iostream>
 #include "DoublyLinkedList.h"
+#include "List.h"
 using namespace std;
 
 template <typename T>
-class GenQueue{
+class GenQueue : public List<T>{
 public:
   GenQueue(); //default constructor
   GenQueue(int maxSize); //overloaded constructor
@@ -32,6 +35,8 @@ public:
 
   DoublyLinkedList<T> *myQueue; //LinkedList
 };
+
+#endif
 
 template <typename T>
 GenQueue<T>::GenQueue(){
