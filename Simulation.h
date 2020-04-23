@@ -11,13 +11,13 @@ using namespace std;
 
 class Simulation{
 public:
-  Simulation();
-  ~Simulation();
+  Simulation();//constructor
+  ~Simulation();//destructor
 
-  void Run(string fileName);
-  void Calculate();
+  void Run(string fileName);//this function runs the simulation
+  void Calculate();//this function calculates summary statistics
 
-private:
+private://member variables
   float m_meanStudentWait;
   float m_medianStudentWait;
   float m_longestStudentWait;

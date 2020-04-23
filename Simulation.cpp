@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Simulation::Simulation(){
+Simulation::Simulation(){//constructor
   m_meanStudentWait = 0.0;
   m_medianStudentWait = 0.0;
   m_longestStudentWait = 0.0;
@@ -23,13 +23,14 @@ Simulation::Simulation(){
   office = new Registrar();
 }
 
-Simulation::~Simulation(){
+Simulation::~Simulation(){//destructor
   delete queue;
   delete helpedStudents;
   delete office;
 }
 
 void Simulation::Run(string fileName){
+  //initializing variables
   ifstream inFS;
 
   int clockTick = 0;
@@ -43,7 +44,7 @@ void Simulation::Run(string fileName){
 
   Student* s;
 
-  inFS.open(fileName);
+  inFS.open(fileName);//file stream
 
   if(!inFS.is_open()){
     cout << "Error: Could not open file." << endl;
@@ -53,28 +54,28 @@ void Simulation::Run(string fileName){
 
 
   while(!inFS.eof()){
-    if(lineCount == 0){
+    if(lineCount == 0){//first line represents number of windows
       inFS >> windowsOpen;
       if(!inFS.fail()){
         office->setNumWindows(windowsOpen);
         ++lineCount;
       }
-    }else if(lineCount == nextClockTickLine){
+    }else if(lineCount == nextClockTickLine){//we are expecting this line to represent the clock tick
       inFS >> clockTick;
       if(!inFS.fail()){
           ++lineCount;
       }
-    }else if (lineCount == (nextClockTickLine + 1)){
+    }else if (lineCount == (nextClockTickLine + 1)){//the line following the clock tick is number of students
       inFS >> numStudents;
       if(!inFS.fail()){
-        nextClockTickLine += numStudents + 2;
+        nextClockTickLine += numStudents + 2;//updating the next clock tick
         ++lineCount;
       }
     }else{
-      inFS >> studentTime;
+      inFS >> studentTime;//getting the students required time
       if(!inFS.fail()){
-        s = new Student(studentTime, clockTick);
-        queue->enqueue(s);
+        s = new Student(studentTime, clockTick);//creating a student object
+        queue->enqueue(s);//enqueue
         cout << "Enqueue at time: " << s->getArrival() << endl;
         ++lineCount;
 
@@ -128,20 +129,20 @@ void Simulation::Run(string fileName){
 
 }
 
+//this function calculates the summary statistics of the program
 void Simulation::Calculate(){
   float totalStudentWait = 0.0;
   int waitTime = 0;
   int size = 0;
 
-
-  size = helpedStudents->getSize();
-  int medArray[size];
+  size = helpedStudents->getSize();//getting the number of students
+  int medArray[size];//creating an array that we will sort
   for(int i = 0; i < size; ++i){
     medArray[i] = helpedStudents->accessAtPos(i)->getWaitTime();
   }
   int n = sizeof(medArray)/sizeof(medArray[0]);
 
-  sort(medArray, medArray+n);
+  sort(medArray, medArray+n);//sorting
   for(int i = 0; i < size; ++i){
     cout << medArray[i] << endl;
     if(size%2 == 0){
@@ -162,16 +163,16 @@ void Simulation::Calculate(){
     waitTime = s->getWaitTime();
     //cout << "check2" << endl;
     totalStudentWait += waitTime;
-    if(waitTime > m_longestStudentWait){
+    if(waitTime > m_longestStudentWait){//longest wait time adjusting
       m_longestStudentWait = waitTime;
     }
-    if(waitTime > 10){
+    if(waitTime > 10){//if the student wait time is over ten minutes we increment
       m_studentsOverTen++;
     }
     delete s;
   }
 
-  //cout << "check4" << endl;
+  //calculating window idle time statistics
   m_meanStudentWait = (totalStudentWait/size);
 
   float totalWindowIdle = 0.0;
@@ -186,8 +187,9 @@ void Simulation::Calculate(){
       m_windowsIdleOver5++;
     }
   }
-  m_meanWindowIdle = (totalWindowIdle/(office->getSize()));;
+  m_meanWindowIdle = (totalWindowIdle/(office->getSize()));
 
+  //printing summary statistics
   cout << "Mean Student Wait: " << m_meanStudentWait << endl;
   cout << "Median Student Wait: " << m_medianStudentWait << endl;
   cout << "Longest Student Wait: " << m_longestStudentWait << endl;

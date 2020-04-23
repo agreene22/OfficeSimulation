@@ -5,23 +5,26 @@
 
 #include "Registrar.h"
 
-Registrar::Registrar(){
+Registrar::Registrar(){//constructor
   m_numWindows = 0;
 }
 
+//this function sets the size of the array of windows
 void Registrar::setNumWindows(int num){
   m_numWindows = num;
   windows = new Window[num];
 }
 
+//this function returns the size of the array of windows
 int Registrar::getSize(){
   return m_numWindows;
 }
 
-Registrar::~Registrar(){
+Registrar::~Registrar(){//destructor
   delete[] windows;
 }
 
+//this function assigns students to windows and calculates their wait time
 void Registrar::assignWindow(Student* s){
   for(int i = 0; i < m_numWindows; ++i){
     if(windows[i].isOpen()){
@@ -41,6 +44,7 @@ void Registrar::assignWindow(Student* s){
 //   }
 // }
 
+//this function iterates through the array of windows and check if students are done
 void Registrar::checkTime(int currTick){
   for(int i = 0; i < m_numWindows; ++i){
     if(windows[i].isOpen()){
@@ -54,6 +58,7 @@ void Registrar::checkTime(int currTick){
   }
 }
 
+//this function returns true if all windows are open and false if one window is filled
 bool Registrar::checkOpen(){
   for(int i = 0; i < m_numWindows; ++i){
     if(windows[i].isOpen()){
@@ -65,6 +70,7 @@ bool Registrar::checkOpen(){
   return true;
 }
 
+//this function iterates through the array of windows and increments their idle time
 void Registrar::incrementWindows(){
   for(int i = 0; i < m_numWindows; ++i){
     if(windows[i].isOpen()){
@@ -74,10 +80,12 @@ void Registrar::incrementWindows(){
   }
 }
 
+//this function returns true if there are no filled windows
 bool Registrar::isEmpty(){
   return (occupiedWindows == 0);
 }
 
+//this function returns true if all the windows are filled, false if one window is open
 bool Registrar::isFull(){
   for(int i = 0; i < m_numWindows; ++i){
     if(windows[i].isOpen()){
@@ -94,6 +102,7 @@ bool Registrar::isFull(){
 //   }
 // }
 
+//this function returns a window at a specific position
 Window Registrar::getWindow(int pos){
   for(int i = 0; i < m_numWindows; ++i){
     if(i == pos){

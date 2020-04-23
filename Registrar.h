@@ -10,12 +10,14 @@ using namespace std;
 
 class Registrar{
   public:
-    Registrar();
-    ~Registrar();
+    Registrar();//constructor
+    ~Registrar();//destructor
 
+    //getters and setters
     void setNumWindows(int numWindows);
     int getSize();
 
+    //helper functions
     void assignWindow(Student* s);
     void checkTime(int currTick);
     bool checkOpen();
@@ -26,7 +28,7 @@ class Registrar{
 
     Window* windows;
 
-  private:
+  private://member variables
     int m_numWindows;
     int occupiedWindows;
 
