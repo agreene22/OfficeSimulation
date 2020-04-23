@@ -10,7 +10,7 @@ using namespace std;
 
 class Registrar{
   public:
-    Registrar();//constructor
+    Registrar();//default constructor
     ~Registrar();//destructor
 
     //getters and setters

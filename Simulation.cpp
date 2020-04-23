@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Simulation::Simulation(){//constructor
+Simulation::Simulation(){ //default constructor
   m_meanStudentWait = 0.0;
   m_medianStudentWait = 0.0;
   m_longestStudentWait = 0.0;
@@ -44,7 +44,7 @@ void Simulation::Run(string fileName){
 
   Student* s;
 
-  inFS.open(fileName);//file stream
+  inFS.open(fileName);//opening file stream
 
   if(!inFS.is_open()){
     cout << "Error: Could not open file." << endl;
@@ -60,7 +60,7 @@ void Simulation::Run(string fileName){
         office->setNumWindows(windowsOpen);
         ++lineCount;
       }
-    }else if(lineCount == nextClockTickLine){//we are expecting this line to represent the clock tick
+    }else if(lineCount == nextClockTickLine){ //we are expecting this line to represent the clock tick
       inFS >> clockTick;
       if(!inFS.fail()){
           ++lineCount;
@@ -88,32 +88,23 @@ void Simulation::Run(string fileName){
 
   time = 1;
   Student* first; //= queue->dequeue(); // declaring up here so we don't redeclare every time
-  //cout << "First Arrival" << first->getArrival() << endl;
+
   while(!queue->isEmpty() || !office->checkOpen()){//it should run if there is someone in the queue or someone at a window now
     if(!office->isFull() && !queue->isEmpty()){ //open windows and people in queue
       first = queue->peek(); //get first student
-      //cout << "peek" << endl;
       if(first->getArrival() <= time){ // check if first students arrival is the current time
         first = queue->dequeue();
         first->setWindowTime(time);//setting the time at which the student got to the window
-        office->assignWindow(first);
+        office->assignWindow(first); // assigning student to a window
         helpedStudents->insertBack(first);
-        //cout << "Assigned to window" << endl;
-      }else if (first->getArrival() > time){//not time for the student to be dequeued yet
-        //cout << "Student in front of line hasnt arrived yet" << endl;
+      }else if (first->getArrival() > time){ //not time for the student to be dequeued yet
         office->incrementWindows();
         office->checkTime(time);
         time++;
 
-      }else if(first->getArrival() < time){//this shouldnt happen, if we enter here i think theres a problem
-       cout << "How did this happen?" << endl;
-       //student at the front of the line is still waiting because the office is full
-       //office->checkTime(time);
-       //time++
       }
     }
     if(!office->isFull() && queue->isEmpty()){//students in windows(there are still empty windows) but the queue is empty
-      //cout << "We made it" << endl;
       office->incrementWindows();
       office->checkTime(time);
       time++;
@@ -143,9 +134,8 @@ void Simulation::Calculate(){
   int n = sizeof(medArray)/sizeof(medArray[0]);
 
   sort(medArray, medArray+n);//sorting
-  for(int i = 0; i < size; ++i){
-    cout << medArray[i] << endl;
-    if(size%2 == 0){
+  for(int i = 0; i < size; ++i){ // for loop iterating until the median is found
+    if(size%2 == 0){ // if the median is an even length
       if(i == ((size+1)/2)){
         m_medianStudentWait = (((float)medArray[i] + (float)medArray[i-1])/2);
       }
@@ -180,10 +170,10 @@ void Simulation::Calculate(){
   for(int i = 0; i < office->getSize(); ++i){
     idle = office->getWindow(i).getIdleTime();
     totalWindowIdle += idle;
-    if(idle > m_longestWindowIdle){
+    if(idle > m_longestWindowIdle){ // updating longest window idle time
       m_longestWindowIdle = idle;
     }
-    if(idle > 5){
+    if(idle > 5){ // incrementing if the window is idle for over five minutes
       m_windowsIdleOver5++;
     }
   }
