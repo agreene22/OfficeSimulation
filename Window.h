@@ -1,6 +1,7 @@
 /* Anna Greene - 2314663
   Brandon Kleinman - 2291703
   Assignment 4 - Registrar Office Simulation
+  Window class to define methods and member variables
  */
 
 #include <iostream>
