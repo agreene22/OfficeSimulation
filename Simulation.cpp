@@ -180,6 +180,7 @@ void Simulation::Calculate(){
   m_meanWindowIdle = (totalWindowIdle/(office->getSize()));
 
   //printing summary statistics
+  cout << endl;
   cout << "Summary Statistics" << endl;
   cout << "Mean Student Wait: " << m_meanStudentWait << endl;
   cout << "Median Student Wait: " << m_medianStudentWait << endl;
