@@ -76,7 +76,7 @@ void Simulation::Run(string fileName){
       if(!inFS.fail()){
         s = new Student(studentTime, clockTick);//creating a student object
         queue->enqueue(s);//enqueue
-        cout << "Enqueue at time: " << s->getArrival() << endl;
+        // cout << "Enqueue at time: " << s->getArrival() << endl;
         ++lineCount;
 
       }
@@ -180,6 +180,7 @@ void Simulation::Calculate(){
   m_meanWindowIdle = (totalWindowIdle/(office->getSize()));
 
   //printing summary statistics
+  cout << "Summary Statistics" << endl;
   cout << "Mean Student Wait: " << m_meanStudentWait << endl;
   cout << "Median Student Wait: " << m_medianStudentWait << endl;
   cout << "Longest Student Wait: " << m_longestStudentWait << endl;
